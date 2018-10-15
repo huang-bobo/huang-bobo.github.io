@@ -8,7 +8,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <meta http-equiv="Cache-Control" content="no-transform">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-capable" content="Bobo Huang写字的地方">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no,email=no,adress=no">
     <meta name="browsermode" content="application">
@@ -27,10 +27,10 @@
     <!--Title-->
 
 
-<title>Hello World | Hexo</title>
+<title>RDMA-Driven Paxos Consistent Algorithm | Bobo Huang写字的地方</title>
 
 
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="Bobo Huang写字的地方" type="application/atom+xml">
 
 
     <link rel="icon" href="/favicon.ico">
@@ -72,15 +72,15 @@
 <![endif]-->
 
 <body>
-    <header class="main-header"  style="background-image:url(http://7xpw2b.com1.z0.glb.clouddn.com/hexo-sinppet/img/banner2.jpg)"  >
+    <header class="main-header"  style="background-image:url(/img/banner.jpg)"  >
     <div class="main-header-box">
-        <a class="header-avatar" href="/" title='John Doe'>
+        <a class="header-avatar" href="/" title='Bob Huang'>
             <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
         </a>
         <div class="branding">
         	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
             
-                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+                <h2> 我荒废的今日，正是昨日殒身之人祈求的明日！ </h2>
             
     	</div>
     </div>
@@ -98,23 +98,27 @@
                     <ul class="menu">
                         
                             <li role="presentation" class="text-center">
-                                <a href="/"><i class="fa "></i>Home</a>
+                                <a href="/"><i class="fa fa-home"></i>  Home</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/前端/"><i class="fa "></i>前端</a>
+                                <a href="/categories/Algorithm/"><i class="fa fa-tasks"></i>  算法</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/后端/"><i class="fa "></i>后端</a>
+                                <a href="/tags"><i class="fa fa-tags"></i>  标签</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                                <a href="/archives"><i class="fa fa-archive"></i>  归档</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/资源/"><i class="fa "></i>资源</a>
+                                <a href="/categories/TechShare/"><i class="fa fa-share"></i>  每周技术分享</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/About"><i class="fa fa-user"></i>  About Me</a>
                             </li>
                         
                     </ul>
@@ -130,9 +134,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="Hello World">
+        <h1 id="RDMA-Driven Paxos Consistent Algorithm">
             
-	            Hello World
+	            RDMA-Driven Paxos Consistent Algorithm
             
         </h1>
         <div class="post-meta">
@@ -140,8 +144,8 @@
     
     <span class="categories-meta fa-wrap">
         <i class="fa fa-folder-open-o"></i>
-        <a href="/categories/ ">
-             
+        <a href="/categories/Algorithm">
+            Algorithm
         </a>
     </span>
     
@@ -150,6 +154,18 @@
         <i class="fa fa-tags"></i>
         <span class="tags-meta">
             
+                
+                    <a href="/tags/RDMA" title='RDMA'>
+                        RDMA
+                    </a>
+                
+                    <a href="/tags/Paxos" title='Paxos'>
+                        Paxos
+                    </a>
+                
+                    <a href="/tags/Algorithm" title='Algorithm'>
+                        Algorithm
+                    </a>
                 
             
         </span>
@@ -160,7 +176,7 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2018/06/13</span>
+            <span class="date-meta">2018/10/15</span>
         </span>
     
 </div>
@@ -170,22 +186,14 @@
     </div>
     
     <div class="post-body post-content">
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <p>下周即将分享，敬请期待。</p>
 
     </div>
 
     <div class="post-footer">
         <div>
             
-                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Bobo Huang</a>
             
         </div>
         <div>
@@ -195,6 +203,11 @@
 </article>
 
 <div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2018/10/16/Bitmap算法-一种基于bit位的数据排序、查重艺术/" class="pre-post btn btn-default" title='Bitmap算法:一种基于bit位的数据排序、查重艺术'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">Bitmap算法:一种基于bit位的数据排序、查重艺术</span>
+        </a>
     
     
 </div>
@@ -220,7 +233,7 @@
                     <aside id="article-toc" role="navigation" class="col-md-4">
     <div class="widget">
         <h3 class="title">文章目录</h3>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#算法概述"><span class="toc-text">算法概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本原理与实现"><span class="toc-text">基本原理与实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Bitmap算法基本原理"><span class="toc-text">Bitmap算法基本原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Map映射表"><span class="toc-text">Map映射表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bit位移转换"><span class="toc-text">Bit位移转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bitmap算法实现（C语言）"><span class="toc-text">Bitmap算法实现（C语言）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法评估"><span class="toc-text">算法评估</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#复杂度分析"><span class="toc-text">复杂度分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#优点与缺点"><span class="toc-text">优点与缺点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#应用示例"><span class="toc-text">应用示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#适用场景"><span class="toc-text">适用场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#问题-1：在2-5亿个整数中找出不重复的整数，约束条件时内存不足以容纳这2-5亿个整数。"><span class="toc-text">问题 1：在2.5亿个整数中找出不重复的整数，约束条件时内存不足以容纳这2.5亿个整数。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#问题-2：给40亿个不重复的unsigned-int的整数，没排过序的，然后再给一个数，如何快速判断这个数是否在那40亿个数当中？"><span class="toc-text">问题 2：给40亿个不重复的unsigned int的整数，没排过序的，然后再给一个数，如何快速判断这个数是否在那40亿个数当中？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#问题-3：已知某个文件内包含一些电话号码，每个号码为8位数字，统计不同号码的个数。"><span class="toc-text">问题 3：已知某个文件内包含一些电话号码，每个号码为8位数字，统计不同号码的个数。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#问题-4：给定一个数组a，求所有和为SUM的两个数。"><span class="toc-text">问题 4：给定一个数组a，求所有和为SUM的两个数。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考文献"><span class="toc-text">参考文献</span></a></li></ol>
     </div>
 </aside>
 
@@ -250,7 +263,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12"> 
-                <span>Copyright &copy; 2017
+                <span>Copyright &copy; 2018
                 </span> | 
                 <span>
                     Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
