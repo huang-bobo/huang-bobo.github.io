@@ -40,7 +40,7 @@
 
 
 <link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
-<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
 <link rel="stylesheet" href="/css/style.css?rev=@@hash">
 
 
@@ -59,6 +59,7 @@
 
 
     
+
 </head>
 
 
@@ -72,7 +73,7 @@
 <![endif]-->
 
 <body>
-    <header class="main-header"  style="background-image:url(/img/banner.jpg)"  >
+    <header class="main-header"  style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)"  >
     <div class="main-header-box">
         <a class="header-avatar" href="/" title='Bob Huang'>
             <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
@@ -80,7 +81,7 @@
         <div class="branding">
         	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
             
-                <h2> 从未如此简单有趣～ </h2>
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
             
     	</div>
     </div>
@@ -89,32 +90,33 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
                     <span class="sr-only"></span>
                         <i class="fa fa-bars"></i>
                     </span>
+                    <a class="navbar-brand" href="http://yoursite.com">Bobo Huang写字的地方</a>
                 </div>
                 <div class="collapse navbar-collapse" id="main-menu">
                     <ul class="menu">
                         
                             <li role="presentation" class="text-center">
-                                <a href="/"><i class="fa fa-home"></i>  Home</a>
+                                <a href="/"><i class="fa "></i>Home</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/tags/算法/"><i class="fa fa-tasks"></i>  算法</a>
+                                <a href="/categories/前端/"><i class="fa "></i>前端</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/闲思碎语/"><i class="fa fa-tags"></i>  闲思碎语</a>
+                                <a href="/categories/后端/"><i class="fa "></i>后端</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/每周技术分享/"><i class="fa fa-share"></i>  每周技术分享</a>
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/About"><i class="fa fa-user"></i>  About Me</a>
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
                             </li>
                         
                     </ul>
@@ -145,6 +147,7 @@
         </a>
     </span>
     
+
     
     <span class="fa-wrap">
         <i class="fa fa-tags"></i>
@@ -166,6 +169,7 @@
             <i class="fa fa-clock-o"></i>
             <span class="date-meta">2018/06/08</span>
         </span>
+        
     
 </div>
 
@@ -193,11 +197,27 @@
 <p>Bob Huang<br>2018.0608</p>
 
     </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="../img/reward-wepay.jpg"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
 
+
+    
     <div class="post-footer">
         <div>
             
-                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Bobo Huang</a>
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
             
         </div>
         <div>
@@ -224,12 +244,28 @@
 
     <div id="comments">
         
-	<!--PC和WAP自适应版-->
-<div id="SOHUCS"></div>
-<script type="text/javascript">
-	(function(){var appid='cyt8KmUC1';var conf='prod_855a68d3b3d91855360a6215672a505a';var width=window.innerWidth||document.documentElement.clientWidth;if(width<960){window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id='+appid+'&conf='+conf+'"><\/script>');}else{var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}
-	c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})});}})();
-</script>	
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: ''.toLowerCase()
+        })
+    </script>
+
 
     </div>
 
@@ -241,8 +277,10 @@
                 
                     <aside id="article-toc" role="navigation" class="col-md-4">
     <div class="widget">
-        <h3 class="title">文章目录</h3>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#算法概述"><span class="toc-text">算法概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本原理与实现"><span class="toc-text">基本原理与实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Bitmap算法基本原理"><span class="toc-text">Bitmap算法基本原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Map映射表"><span class="toc-text">Map映射表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bit位移转换"><span class="toc-text">Bit位移转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bitmap算法实现（C语言）"><span class="toc-text">Bitmap算法实现（C语言）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法评估"><span class="toc-text">算法评估</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#复杂度分析"><span class="toc-text">复杂度分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#优点与缺点"><span class="toc-text">优点与缺点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#应用示例"><span class="toc-text">应用示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#适用场景"><span class="toc-text">适用场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#问题-1：在2-5亿个整数中找出不重复的整数，约束条件时内存不足以容纳这2-5亿个整数。"><span class="toc-text">问题 1：在2.5亿个整数中找出不重复的整数，约束条件时内存不足以容纳这2.5亿个整数。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#问题-2：给40亿个不重复的unsigned-int的整数，没排过序的，然后再给一个数，如何快速判断这个数是否在那40亿个数当中？"><span class="toc-text">问题 2：给40亿个不重复的unsigned int的整数，没排过序的，然后再给一个数，如何快速判断这个数是否在那40亿个数当中？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#问题-3：已知某个文件内包含一些电话号码，每个号码为8位数字，统计不同号码的个数。"><span class="toc-text">问题 3：已知某个文件内包含一些电话号码，每个号码为8位数字，统计不同号码的个数。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#问题-4：给定一个数组a，求所有和为SUM的两个数。"><span class="toc-text">问题 4：给定一个数组a，求所有和为SUM的两个数。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考文献"><span class="toc-text">参考文献</span></a></li></ol>
+        <h3 class="title">Table of Contents</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#例-1"><span class="toc-text">例 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#例-2"><span class="toc-text">例 2</span></a></li></ol>
+        
     </div>
 </aside>
 
@@ -257,10 +295,6 @@
     </div>
 </footer>
 
-<!--<a id="toc-btn">
-    <i class="fa fa-bars"></i>
-</a>-->
-
 <a id="back-to-top" class="icon-btn hide">
 	<i class="fa fa-chevron-up"></i>
 </a>
@@ -271,12 +305,18 @@
     <div class="copyright">
     <div class="container">
         <div class="row">
-            <div class="col-sm-12"> 
-                <span>Copyright &copy; 2018
-                </span> | 
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
                 <span>
                     Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
-                </span> | 
+                </span> |
                 <span>
                     Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
                 </span>
@@ -287,11 +327,11 @@
 
 
 
-	<script src="/js/search.js?rev=@@hash"></script>
+
+
 
 
 <script src="/js/app.js?rev=@@hash"></script>
-
 
 </body>
 </html>
