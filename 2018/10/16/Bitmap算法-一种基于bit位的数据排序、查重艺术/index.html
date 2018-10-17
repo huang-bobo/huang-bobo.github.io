@@ -1,5 +1,423 @@
-<!DOCTYPE HTML><html lang=""><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta http-equiv="Cache-Control" content="no-siteapp"><meta http-equiv="Cache-Control" content="no-transform"><meta name="renderer" content="webkit|ie-comp|ie-stand"><meta name="apple-mobile-web-app-capable" content="Bobo Huang写字的地方"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="format-detection" content="telephone=no,email=no,adress=no"><meta name="browsermode" content="application"><meta name="screen-orientation" content="portrait"><link rel="dns-prefetch" href="http://yoursite.com"><meta name="robots" content="all"><meta name="google" content="all"><meta name="googlebot" content="all"><meta name="verify" content="all"><title>Bitmap算法:一种基于bit位的数据排序、查重艺术 | Bobo Huang写字的地方</title><link rel="alternate" href="/atom.xml" title="Bobo Huang写字的地方" type="application/atom+xml"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/css/bootstrap.min.css?rev=58b7707886bb199811bed37162c7a60a"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css?rev=8f18d7189b91ee2c0129163e3c179bf3"><div class="hide"><script type="text/javascript">var cnzz_protocol="https:"==document.location.protocol?" https://":" http://";document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='"+cnzz_protocol+"s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"))</script></div></head><!--[if lte IE 8]><style>
+<!DOCTYPE HTML>
+<html lang="">
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Bobo Huang写字的地方">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+
+<title>Bitmap算法:一种基于bit位的数据排序、查重艺术 | Bobo Huang写字的地方</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="Bobo Huang写字的地方" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
     html{ font-size: 1em }
-</style><![endif]--><!--[if lte IE 9]><div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div><![endif]--><body><header class="main-header" style="background-image:url(/img/banner.jpg)"><div class="main-header-box"><a class="header-avatar" href="/" title="Bob Huang"><img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block"></a><div class="branding"><h2>从未如此简单有趣～</h2></div></div></header><nav class="main-navigation"><div class="container"><div class="row"><div class="col-sm-12"><div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav"><span class="sr-only"></span><i class="fa fa-bars"></i></span> <a class="navbar-brand" href="http://yoursite.com">Bobo Huang写字的地方</a></div><div class="collapse navbar-collapse" id="main-menu"><ul class="menu"><li role="presentation" class="text-center"><a href="/"><i class="fa fa-home"></i> Home</a></li><li role="presentation" class="text-center"><a href="/tags/算法/"><i class="fa fa-tasks"></i> 算法</a></li><li role="presentation" class="text-center"><a href="/categories/闲思碎语/"><i class="fa fa-tags"></i> 闲思碎语</a></li><li role="presentation" class="text-center"><a href="/categories/每周技术分享/"><i class="fa fa-share"></i> 每周技术分享</a></li><li role="presentation" class="text-center"><a href="/About"><i class="fa fa-user"></i> About Me</a></li></ul></div></div></div></div></nav><section class="content-wrap"><div class="container"><div class="row"><main class="col-md-8 main-content m-post"><p id="process"></p><article class="post"><div class="post-head"><h1 id="Bitmap算法:一种基于bit位的数据排序、查重艺术">Bitmap算法:一种基于bit位的数据排序、查重艺术</h1><div class="post-meta"><span class="categories-meta fa-wrap"><i class="fa fa-folder-open-o"></i> <a href="/categories/每周技术分享">每周技术分享</a></span><span class="fa-wrap"><i class="fa fa-tags"></i> <span class="tags-meta"><a href="/tags/算法" title="算法">算法</a> <a href="/tags/Bitmap" title="Bitmap">Bitmap</a> <a href="/tags/Sort" title="Sort">Sort</a></span></span><span class="fa-wrap"><i class="fa fa-clock-o"></i> <span class="date-meta">2018/10/16</span></span></div></div><div class="post-body post-content"><blockquote><p>随着大数据规模的逐渐增长，在单机上的海量数据条目排序、查重、压缩是一项很有挑战性的工作。随之而来的许多硬件加速技术、算法被提出来，并在生产环境中落地实践，Bitmap就是其中一种被普遍应用的大数据排序、查重的算法，该算法巧妙利用了bit位来表示一个数值在一组数据集合中的状态（如某元素是否存在数据集合中），极大地压缩了数据处理（排序、查重）所需要的内存空间。本文将从算法概述、基本原理与实现、算法评估、应用场景与实例四个方面进行阐述。</p></blockquote><h3 id="算法概述"><a href="#算法概述" class="headerlink" title="算法概述"></a>算法概述</h3><p>Bitmap（位图算法），是一种基于bit的映射算法，即用一个bit位（或几个bit位）来标记某个元素对应的状态value，而key即是该元素，对应的value即是该元素key的状态（0表示key不存在，1表示key存在），当然也可以根据需要选择多个bit位表示，2个bit标识4种状态，3个bit标识8种状态，n个bit标识2^n种状态。</p><p>由此产生了Bitmap位图数据结构。该数据结构描述了一个有限定义域内的稠密集合，其中（1）每一个元素最多出现一次；（2）并且没有其他任何数据与该元素相关联。即使这些条件没有完全满足（例如，存在重复元素或额外的数据），也可以用有限定义域内的键作为一个表项更复杂的表格的索引。</p><p>由于采用bit位存储数据，对于海量数据的查重、排序问题，可以大大节省所需内存存储空间，Bitmap算法适用于解决数据集中的每个元素最多出现一次（或n次）并且没有其他任何数据与该元素相关联的问题。</p><h3 id="基本原理与实现"><a href="#基本原理与实现" class="headerlink" title="基本原理与实现"></a>基本原理与实现</h3><h4 id="Bitmap算法基本原理"><a href="#Bitmap算法基本原理" class="headerlink" title="Bitmap算法基本原理"></a>Bitmap算法基本原理</h4><p>一个整型数据，比如<code>int a;</code>,在内存中占用32bit，可以用对应的32bit位对应十进制的0-31个数，bitmap算法利用这种思想处理大量数据的排序和查询。</p><p>我们举个例子，现在有一个无序有界int数组<code>int[] b = {5,2,11,3}</code>,至少需要占用内存<code>4*4=16</code>个字节，但是如果有10亿个这样的数，大概需要<code>1000000000*4/(1024*1024*1024)=3.72GB</code>左右，如果针对这样大量的数据进行查询排序，内存肯定要溢出崩溃的。</p><p>针对上面的问题，使用Bitmap算法就可以轻易解决，一个byte占用8个bit，如果用bit的位置索引表示数组b中的元素值，bit位的取值（0或1）表示该元素在数组中的状态（是否存在），0表示不存在，1表示存在。那么整个过程如下所示：</p><ul><li>申请一个int型（根据需要也可以申请long型或short型）的内存空间，则有4个Byte，共32bit。然后根据数组下标<code>int[] b = {5,2,11,3}</code>依次遍历5,2,11,3， 把相应的bit位置为1，表示该元素存在。其中，bit区域从低bit位到高bit位，对应的位置索引<code>i</code>即代表要标识的数组<code>int[] b</code>中元素值，bit位为1表示该元素存在数组中，默认为0表示元素不存在：</li></ul><p><img src="/img/bitmap1.png" alt="步骤1"></p><ul><li>输入5，将相应的第 6 bit置为1：</li></ul><p><img src="/img/bitmap2.png" alt="步骤2"></p><ul><li>输入2，将相应的第 3 bit置为1:</li></ul><p><img src="/img/bitmap3.png" alt="步骤3"></p><ul><li>输入11，将相应的第 12 bit置为1:</li></ul><p><img src="/img/bitmap4.png" alt="步骤4"></p><ul><li>输入3，将相应的第 4 bit置为1:</li></ul><p><img src="/img/bitmap5.png" alt="步骤5"></p><p>Bitmap算法的基本原理很简单巧妙，关键是十进制和二进制bit之间的转换需要一个映射表，一方面在数据组装初始化时，需要将10进制数据映射到相应的bit位上；另一方面，在遍历一片bit区域时，需要将bit位信息解析为10进制数据及状态（有或无）。</p><h4 id="Map映射表"><a href="#Map映射表" class="headerlink" title="Map映射表"></a>Map映射表</h4><p>假设需要排序或者查重的整型数的总数<code>N=10000000=10^7</code>, 那么我们需要申请内存空间的大小为<code>int a[1 + N/32]</code>(或者<code>long long a[1 + N/64]</code>),其中<code>a[0]</code>在内存中占用<code>32bit</code>，依次类推<strong>bitmap</strong>表如下：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a[0]  --------&gt;  0 ~ 31</span><br><span class="line">a[1]  --------&gt;  32 ~ 63</span><br><span class="line">a[2]  --------&gt;  64 ~ 95</span><br><span class="line">a[3]  --------&gt;  96 ~ 127</span><br><span class="line">......</span><br><span class="line">a[312500]  --------&gt;  (10^7) ~ (10^7 + 31)</span><br><span class="line">......</span><br><span class="line">a[N/32]  --------&gt;   (N/32)*32 ~ ((N/32) * 32 + 31)</span><br></pre></td></tr></table></figure><h4 id="Bit位移转换"><a href="#Bit位移转换" class="headerlink" title="Bit位移转换"></a>Bit位移转换</h4><p>为了得到Map映射表，我们需要利用bit位移将10进制数转换位2进制bit位。</p><ul><li><p>求十进制数 <code>0 - n</code> 对应的在数组 a 中的下标：</p><p><code>index_loc = n / 32</code>，32表示int型占用的32bit，<code>index_loc</code>即为n对应的数组下标。例如<code>n = 80</code> , 则<code>index_loc = 80 / 32 = 2</code>, 因此<code>n = 80</code>在<code>a[2]</code>中。</p></li><li><p>求十进制数 <code>0 - n</code> 对应的bit位:</p><p><code>bit_loc = N % 32</code>，例如 <code>n = 80</code>, <code>bit_loc = 80 % 32 = 16</code>。</p></li><li><p>利用移位运算 <code>0 - 31</code> 使得<code>a[index_loc]</code>对应的32bit位为1.</p></li></ul><h4 id="Bitmap算法实现（C语言）"><a href="#Bitmap算法实现（C语言）" class="headerlink" title="Bitmap算法实现（C语言）"></a>Bitmap算法实现（C语言）</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHIFT 5</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MASK 0x1F</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 设置所在的bit位为1</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * T = O(1)</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> *arr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> index_loc, bit_loc;</span><br><span class="line"></span><br><span class="line">    index_loc = n &gt;&gt; SHIFT; <span class="comment">// 等价于n / 32</span></span><br><span class="line">    bit_loc = n &amp; MASK;    <span class="comment">// 等价于n % 32 。 h%2^n = h &amp; (2^n -1)</span></span><br><span class="line"></span><br><span class="line">    arr[index_loc] |= <span class="number">1</span> &lt;&lt; bit_loc;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 上述set函数等价于</span></span><br><span class="line"><span class="comment">//void set(int i)</span></span><br><span class="line"><span class="comment">//&#123;</span></span><br><span class="line"><span class="comment">//   a[i/32] |= (1&lt;&lt;(i%32));</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 初始化arr[index_loc]所有bit位为0</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * T = O(1)</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clr</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> *arr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> index_loc;</span><br><span class="line">    index_loc = n &gt;&gt; SHIFT;</span><br><span class="line">    arr[index_loc] &amp;= <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 测试n所在的bit位是否为1</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * T = O(1)</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> *arr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, flag;</span><br><span class="line">    i = <span class="number">1</span> &lt;&lt; (n &amp; MASK);</span><br><span class="line">    flag = arr[n &gt;&gt; SHIFT] &amp; i;</span><br><span class="line">    <span class="keyword">return</span> flag;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, num, space, *arr;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;num) != EOF) &#123;</span><br><span class="line">        <span class="comment">// 确定大小&amp;&amp;动态申请数组</span></span><br><span class="line">        space = num / <span class="number">32</span> + <span class="number">1</span>;</span><br><span class="line">        arr = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>) * space);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化bit位为0</span></span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= num; i ++)</span><br><span class="line">            clr(i, arr);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置num的比特位为1</span></span><br><span class="line">        <span class="built_in">set</span>(num, arr);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 测试</span></span><br><span class="line">        <span class="keyword">if</span> (test(num, arr)) &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"成功！\n"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"失败!\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>以下将对上述代码进行解析：</p><ul><li><p><code>i&gt;&gt;SHIFT</code>(相当于整除运算<code>i/32</code>，保留商)</p><p>其中<code>SHIFT = 5</code>，即i右移5bit，<code>2^5=32</code>,相当于<code>i/32</code>，即求出十进制i对应在数组a中的下标<code>index_loc</code>。比如<code>i=20</code>，通过<code>i&gt;&gt;SHIFT=20&gt;&gt;5=0</code> 可求得<strong>i=20的下标为0</strong>；</p></li><li><p><code>i &amp; MASK</code> (相当于取模运算<code>i%32</code>，保留余数)</p><p>其中<code>MASK=0X1F</code>,十六进制转化为十进制为31，二进制为0001 1111，<code>i &amp;（0001 1111）</code>相当于保留i的后5位。</p><p>比如<code>i=23</code>，二进制为：<code>0001 0111</code>，那么<br><code>0001 0111 &amp; 0001 1111 = 0001 0111</code> 十进制为：23;</p><p>比如<code>i=83</code>，二进制为：<code>0000 0000 0101 0011</code>，那么</p><pre><code>`0000 0000 0101 0011   &amp;   0000 0000 0001 0000 = 0000 0000 0001 1111` 十进制为：19 .
-</code></pre></li><li><p><code>1&lt;&lt;(i &amp; MASK)</code></p><p>相当于把1左移 <code>(i &amp; MASK)</code>位, 比如<code>(i &amp; MASK)=20</code>，那么<code>i&lt;&lt;20</code>就相当于：</p><pre><code>`0000 0000 0000 0000 0000 0000 0000 0001 &gt;&gt;20 =0000 0000 0000 1000 0000 0000 0000 0000 `
-</code></pre></li></ul><p>-</p><h3 id="算法评估"><a href="#算法评估" class="headerlink" title="算法评估"></a>算法评估</h3><h4 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h4><p>对于数据规模为<code>n</code>的整型数据集，Bitmap算法的时间复杂度为<code>O(n)</code>, 空间复杂度为<code>O(1)</code>。 其中，存储bit位信息的数组a大小由最大数max决定。即<code>size_of(a) = max_of(b)</code>, 其中b表示原始数据集，a表示经过bitmap算法映射后的基于bit位的数组。</p><p>对于bitmap排序算法（包括bitmap映射和遍历排序两个步骤），其时间和空间复杂度取决于数据集中的最大值<code>MAX</code>。对于数据规模为<code>n</code>的整型数据集，如果采用int型数组表示bitmap信息，即每32bit为一个单元，则其时间复杂度为<code>O(max(n, MAX/32))</code>, 如果在遍历排序阶段开m个线程读，那么其时间复杂度为<code>O(max(n, (MAX/32)/m))</code>; 空间复杂度为<code>O(max(n, MAX/32))</code>。</p><h4 id="优点与缺点"><a href="#优点与缺点" class="headerlink" title="优点与缺点"></a>优点与缺点</h4><ul><li><p>优点</p><p>(1). 运算效率高，不进行数据比较；查找，去重存储效率高，不需要遍历全部数据就可以进行。</p><p>(2). 占用内存少，比如最大的数MAX=10000000；只需占用内存为MAX/8=1250000Byte=1.25M。</p><p>(3). 在数据量大且重复率少的情况下，可以极大程度的压缩存储空间，并且保证有序。</p><p>(4). 对于特定的，只有0，1特征值，并且含有唯一识别号的数据存储中，优势巨大，节省存储空间，查询和维护的成本。</p></li><li><p>缺点</p><p>(1). 所有的数据不能重复，即不可对重复的数据进行排序。（针对少量重复的数据，假设其重复次数为n，则 a = {n的平方根 + 1} 表示, 可以用a-bitmap算法。比如当a=5时，则利用3-bitmap算法）。</p><p>(2). 当数据类似（1，1000，10万）只有3个数据的时候，用bitmap时间复杂度和空间复杂度相当大，只有<strong>当数据比较密集</strong>时才有优势。</p></li></ul><h3 id="应用示例"><a href="#应用示例" class="headerlink" title="应用示例"></a>应用示例</h3><h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><p>Bitmap算法适用于：</p><ul><li>可进行数据的快速查找，判重，删除，一般来说数据范围是int的10倍以下；</li><li>去重数据而达到压缩数据；</li><li>用于爬虫系统中url去重、解决全组合问题；</li><li>Bitmap算法可以扩展为Bloom filter(布隆过滤器)。</li></ul><h4 id="问题-1：在2-5亿个整数中找出不重复的整数，约束条件时内存不足以容纳这2-5亿个整数。"><a href="#问题-1：在2-5亿个整数中找出不重复的整数，约束条件时内存不足以容纳这2-5亿个整数。" class="headerlink" title="问题 1：在2.5亿个整数中找出不重复的整数，约束条件时内存不足以容纳这2.5亿个整数。"></a>问题 1：在2.5亿个整数中找出不重复的整数，约束条件时内存不足以容纳这2.5亿个整数。</h4><p><strong>解法一：</strong>采用2-Bitmap（每个数分配2bit，00表示不存在，01表示出现一次，10表示多次，11无意义）进行，共需内存2^32 * 2 bit=1 GB内存，还可以接受。然后扫描这2.5亿个整数，查看Bitmap中相对应位，如果是00变01，01变10，10保持不变。所描完事后，查看bitmap，把对应位是01的整数输出即可。</p><p><strong>解法二：</strong>也可采用进行划分小文件的方法，然后在小文件中找出不重复的整数，并排序。然后再进行归并，注意去除重复的元素。”</p><h4 id="问题-2：给40亿个不重复的unsigned-int的整数，没排过序的，然后再给一个数，如何快速判断这个数是否在那40亿个数当中？"><a href="#问题-2：给40亿个不重复的unsigned-int的整数，没排过序的，然后再给一个数，如何快速判断这个数是否在那40亿个数当中？" class="headerlink" title="问题 2：给40亿个不重复的unsigned int的整数，没排过序的，然后再给一个数，如何快速判断这个数是否在那40亿个数当中？"></a>问题 2：给40亿个不重复的unsigned int的整数，没排过序的，然后再给一个数，如何快速判断这个数是否在那40亿个数当中？</h4><p><strong>解法一：</strong>可以用位图/Bitmap的方法，申请512M的内存，一个bit位代表一个unsigned int值。读入40亿个数，设置相应的bit位，读入要查询的数，查看相应bit位是否为1，为1表示存在，为0表示不存在。</p><h4 id="问题-3：已知某个文件内包含一些电话号码，每个号码为8位数字，统计不同号码的个数。"><a href="#问题-3：已知某个文件内包含一些电话号码，每个号码为8位数字，统计不同号码的个数。" class="headerlink" title="问题 3：已知某个文件内包含一些电话号码，每个号码为8位数字，统计不同号码的个数。"></a>问题 3：已知某个文件内包含一些电话号码，每个号码为8位数字，统计不同号码的个数。</h4><p><strong>解法一：</strong>8位最多99 999 999，大概需要99m个bit，大概10几m字节的内存即可。 （可以理解为从0-99 999 999的数字，每个数字对应一个Bit位，所以只需要99M个Bit==1.2MBytes，这样，就用了小小的1.2M左右的内存表示了所有的8位数的电话）</p><h4 id="问题-4：给定一个数组a，求所有和为SUM的两个数。"><a href="#问题-4：给定一个数组a，求所有和为SUM的两个数。" class="headerlink" title="问题 4：给定一个数组a，求所有和为SUM的两个数。"></a>问题 4：给定一个数组a，求所有和为SUM的两个数。</h4><p><strong>解法一：</strong>如果数组都是整数（负数也可以，将所有数据加上最小的负数x，SUM += 2x就可以了）。如a = [1,2,3,4,7,8]，先求a的补数组[8,7,6,5,2,1]，开辟两个数组b1,b2（最大数组长度为SUM/8/2{因为两数满足和为SUM，一个数&lt;SUM/2，另一个数也就知道了}，这样每个b数组最大内存为SUM/(8<em>2</em>1024*1024) = 128M）,使用bitmap算法和数组a分别设置b1、b2对应的位为1，b1、b2相与就可以得到和为SUM的两个数其中一个数了。</p><h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ul><li><p><a href="https://wizardforcel.gitbooks.io/the-art-of-programming-by-july/content/06.07.html" target="_blank" rel="noopener">Bitmap 方法</a></p></li><li><p><a href="https://www.cnblogs.com/chanshuyi/p/5287825.html" target="_blank" rel="noopener">BigMap 算法</a></p></li><li><a href="https://blog.csdn.net/pipisorry/article/details/64127666" target="_blank" rel="noopener">Bloom Filter 布隆过滤器</a></li></ul><hr><p>分享人：复旦大学NiSL <strong><em>周鑫 金力 黄一博</em></strong></p></div><div class="reward"><div class="reward-wrap">赏<div class="reward-box"><span class="reward-type"><img class="alipay" src="/img/alipay.jpeg"><b>支付宝打赏</b></span> <span class="reward-type"><img class="wechat" src="/img/wepay.jpeg"><b>微信打赏</b></span></div></div><p class="reward-tip">赞赏是不耍流氓的鼓励</p></div><div class="post-footer"><div>转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Bobo Huang</a></div><div></div></div></article><div class="article-nav prev-next-wrap clearfix"><a href="/2018/10/15/RDMA-Driven-Paxos-Consistent-Algorithm/" class="next-post btn btn-default" title="RDMA-Driven Paxos Consistent Algorithm"><span class="hidden-lg">下一篇</span> <span class="hidden-xs">RDMA-Driven Paxos Consistent Algorithm</span><i class="fa fa-angle-right fa-fw"></i></a></div><div id="comments"><div id="vcomments" class="valine"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="/assets/valine.min.js"></script><script>new Valine({av:AV,el:"#vcomments",appId:"xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz",appKey:"erIpQac4azoCmgfBB7Dl9maa",placeholder:"说点什么吧",notify:!1,verify:!1,avatar:"mm",meta:"nick,mail".split(","),pageSize:"10",path:window.location.pathname,lang:"".toLowerCase()})</script></div></main><aside id="article-toc" role="navigation" class="col-md-4"><div class="widget"><h3 class="title">Table of Contents</h3><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#算法概述"><span class="toc-number">1.</span> <span class="toc-text">算法概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本原理与实现"><span class="toc-number">2.</span> <span class="toc-text">基本原理与实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Bitmap算法基本原理"><span class="toc-number">2.1.</span> <span class="toc-text">Bitmap算法基本原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Map映射表"><span class="toc-number">2.2.</span> <span class="toc-text">Map映射表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bit位移转换"><span class="toc-number">2.3.</span> <span class="toc-text">Bit位移转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bitmap算法实现（C语言）"><span class="toc-number">2.4.</span> <span class="toc-text">Bitmap算法实现（C语言）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法评估"><span class="toc-number">3.</span> <span class="toc-text">算法评估</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#复杂度分析"><span class="toc-number">3.1.</span> <span class="toc-text">复杂度分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#优点与缺点"><span class="toc-number">3.2.</span> <span class="toc-text">优点与缺点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#应用示例"><span class="toc-number">4.</span> <span class="toc-text">应用示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#适用场景"><span class="toc-number">4.1.</span> <span class="toc-text">适用场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#问题-1：在2-5亿个整数中找出不重复的整数，约束条件时内存不足以容纳这2-5亿个整数。"><span class="toc-number">4.2.</span> <span class="toc-text">问题 1：在2.5亿个整数中找出不重复的整数，约束条件时内存不足以容纳这2.5亿个整数。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#问题-2：给40亿个不重复的unsigned-int的整数，没排过序的，然后再给一个数，如何快速判断这个数是否在那40亿个数当中？"><span class="toc-number">4.3.</span> <span class="toc-text">问题 2：给40亿个不重复的unsigned int的整数，没排过序的，然后再给一个数，如何快速判断这个数是否在那40亿个数当中？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#问题-3：已知某个文件内包含一些电话号码，每个号码为8位数字，统计不同号码的个数。"><span class="toc-number">4.4.</span> <span class="toc-text">问题 3：已知某个文件内包含一些电话号码，每个号码为8位数字，统计不同号码的个数。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#问题-4：给定一个数组a，求所有和为SUM的两个数。"><span class="toc-number">4.5.</span> <span class="toc-text">问题 4：给定一个数组a，求所有和为SUM的两个数。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考文献"><span class="toc-number">5.</span> <span class="toc-text">参考文献</span></a></li></ol></div></aside></div></div></section><footer class="main-footer"><div class="container"><div class="row"></div></div></footer><a id="back-to-top" class="icon-btn hide"><i class="fa fa-chevron-up"></i></a><div class="copyright"><div class="container"><div class="row"><div class="col-sm-12"><div class="busuanzi"></div></div><div class="col-sm-12"><span>Copyright &copy; 2019</span> | <span>Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a></span> | <span>Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a></span></div></div></div></div><script src="/js/app.js?rev=f25479a641009e7423ae98c6f819957f"></script></body></html>
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Bob Huang'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 从未如此简单有趣～ </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">Bobo Huang写字的地方</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa fa-home"></i>  Home</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/算法/"><i class="fa fa-tasks"></i>  算法</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/闲思碎语/"><i class="fa fa-tags"></i>  闲思碎语</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/每周技术分享/"><i class="fa fa-share"></i>  每周技术分享</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/About"><i class="fa fa-user"></i>  About Me</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Bitmap算法:一种基于bit位的数据排序、查重艺术">
+            
+	            Bitmap算法:一种基于bit位的数据排序、查重艺术
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/每周技术分享">
+            每周技术分享
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/算法" title='算法'>
+                        算法
+                    </a>
+                
+                    <a href="/tags/Bitmap" title='Bitmap'>
+                        Bitmap
+                    </a>
+                
+                    <a href="/tags/Sort" title='Sort'>
+                        Sort
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2018/10/16</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <blockquote>
+<p>随着大数据规模的逐渐增长，在单机上的海量数据条目排序、查重、压缩是一项很有挑战性的工作。随之而来的许多硬件加速技术、算法被提出来，并在生产环境中落地实践，Bitmap就是其中一种被普遍应用的大数据排序、查重的算法，该算法巧妙利用了bit位来表示一个数值在一组数据集合中的状态（如某元素是否存在数据集合中），极大地压缩了数据处理（排序、查重）所需要的内存空间。本文将从算法概述、基本原理与实现、算法评估、应用场景与实例四个方面进行阐述。</p>
+</blockquote>
+<h3 id="算法概述"><a href="#算法概述" class="headerlink" title="算法概述"></a>算法概述</h3><p>Bitmap（位图算法），是一种基于bit的映射算法，即用一个bit位（或几个bit位）来标记某个元素对应的状态value，而key即是该元素，对应的value即是该元素key的状态（0表示key不存在，1表示key存在），当然也可以根据需要选择多个bit位表示，2个bit标识4种状态，3个bit标识8种状态，n个bit标识2^n种状态。</p>
+<p>由此产生了Bitmap位图数据结构。该数据结构描述了一个有限定义域内的稠密集合，其中（1）每一个元素最多出现一次；（2）并且没有其他任何数据与该元素相关联。即使这些条件没有完全满足（例如，存在重复元素或额外的数据），也可以用有限定义域内的键作为一个表项更复杂的表格的索引。</p>
+<p>由于采用bit位存储数据，对于海量数据的查重、排序问题，可以大大节省所需内存存储空间，Bitmap算法适用于解决数据集中的每个元素最多出现一次（或n次）并且没有其他任何数据与该元素相关联的问题。</p>
+<h3 id="基本原理与实现"><a href="#基本原理与实现" class="headerlink" title="基本原理与实现"></a>基本原理与实现</h3><h4 id="Bitmap算法基本原理"><a href="#Bitmap算法基本原理" class="headerlink" title="Bitmap算法基本原理"></a>Bitmap算法基本原理</h4><p>一个整型数据，比如<code>int a;</code>,在内存中占用32bit，可以用对应的32bit位对应十进制的0-31个数，bitmap算法利用这种思想处理大量数据的排序和查询。</p>
+<p>我们举个例子，现在有一个无序有界int数组<code>int[] b = {5,2,11,3}</code>,至少需要占用内存<code>4*4=16</code>个字节，但是如果有10亿个这样的数，大概需要<code>1000000000*4/(1024*1024*1024)=3.72GB</code>左右，如果针对这样大量的数据进行查询排序，内存肯定要溢出崩溃的。</p>
+<p>针对上面的问题，使用Bitmap算法就可以轻易解决，一个byte占用8个bit，如果用bit的位置索引表示数组b中的元素值，bit位的取值（0或1）表示该元素在数组中的状态（是否存在），0表示不存在，1表示存在。那么整个过程如下所示：</p>
+<ul>
+<li>申请一个int型（根据需要也可以申请long型或short型）的内存空间，则有4个Byte，共32bit。然后根据数组下标<code>int[] b = {5,2,11,3}</code>依次遍历5,2,11,3， 把相应的bit位置为1，表示该元素存在。其中，bit区域从低bit位到高bit位，对应的位置索引<code>i</code>即代表要标识的数组<code>int[] b</code>中元素值，bit位为1表示该元素存在数组中，默认为0表示元素不存在：</li>
+</ul>
+<p><img src="/img/bitmap1.png" alt="步骤1"></p>
+<ul>
+<li>输入5，将相应的第 6 bit置为1：</li>
+</ul>
+<p><img src="/img/bitmap2.png" alt="步骤2"></p>
+<ul>
+<li>输入2，将相应的第 3 bit置为1:</li>
+</ul>
+<p><img src="/img/bitmap3.png" alt="步骤3"></p>
+<ul>
+<li>输入11，将相应的第 12 bit置为1:</li>
+</ul>
+<p><img src="/img/bitmap4.png" alt="步骤4"></p>
+<ul>
+<li>输入3，将相应的第 4 bit置为1:</li>
+</ul>
+<p><img src="/img/bitmap5.png" alt="步骤5"></p>
+<p>Bitmap算法的基本原理很简单巧妙，关键是十进制和二进制bit之间的转换需要一个映射表，一方面在数据组装初始化时，需要将10进制数据映射到相应的bit位上；另一方面，在遍历一片bit区域时，需要将bit位信息解析为10进制数据及状态（有或无）。</p>
+<h4 id="Map映射表"><a href="#Map映射表" class="headerlink" title="Map映射表"></a>Map映射表</h4><p>假设需要排序或者查重的整型数的总数<code>N=10000000=10^7</code>, 那么我们需要申请内存空间的大小为<code>int a[1 + N/32]</code>(或者<code>long long a[1 + N/64]</code>),其中<code>a[0]</code>在内存中占用<code>32bit</code>，依次类推<strong>bitmap</strong>表如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a[0]  --------&gt;  0 ~ 31</span><br><span class="line">a[1]  --------&gt;  32 ~ 63</span><br><span class="line">a[2]  --------&gt;  64 ~ 95</span><br><span class="line">a[3]  --------&gt;  96 ~ 127</span><br><span class="line">......</span><br><span class="line">a[312500]  --------&gt;  (10^7) ~ (10^7 + 31)</span><br><span class="line">......</span><br><span class="line">a[N/32]  --------&gt;   (N/32)*32 ~ ((N/32) * 32 + 31)</span><br></pre></td></tr></table></figure>
+<h4 id="Bit位移转换"><a href="#Bit位移转换" class="headerlink" title="Bit位移转换"></a>Bit位移转换</h4><p>为了得到Map映射表，我们需要利用bit位移将10进制数转换位2进制bit位。</p>
+<ul>
+<li><p>求十进制数 <code>0 - n</code> 对应的在数组 a 中的下标：</p>
+<p><code>index_loc = n / 32</code>，32表示int型占用的32bit，<code>index_loc</code>即为n对应的数组下标。例如<code>n = 80</code> , 则<code>index_loc = 80 / 32 = 2</code>, 因此<code>n = 80</code>在<code>a[2]</code>中。</p>
+</li>
+<li><p>求十进制数 <code>0 - n</code> 对应的bit位:</p>
+<p><code>bit_loc = N % 32</code>，例如 <code>n = 80</code>, <code>bit_loc = 80 % 32 = 16</code>。</p>
+</li>
+<li><p>利用移位运算 <code>0 - 31</code> 使得<code>a[index_loc]</code>对应的32bit位为1.</p>
+</li>
+</ul>
+<h4 id="Bitmap算法实现（C语言）"><a href="#Bitmap算法实现（C语言）" class="headerlink" title="Bitmap算法实现（C语言）"></a>Bitmap算法实现（C语言）</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHIFT 5</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MASK 0x1F</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 设置所在的bit位为1</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * T = O(1)</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> *arr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> index_loc, bit_loc;</span><br><span class="line"></span><br><span class="line">    index_loc = n &gt;&gt; SHIFT; <span class="comment">// 等价于n / 32</span></span><br><span class="line">    bit_loc = n &amp; MASK;    <span class="comment">// 等价于n % 32 。 h%2^n = h &amp; (2^n -1)</span></span><br><span class="line"></span><br><span class="line">    arr[index_loc] |= <span class="number">1</span> &lt;&lt; bit_loc;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 上述set函数等价于</span></span><br><span class="line"><span class="comment">//void set(int i)</span></span><br><span class="line"><span class="comment">//&#123;</span></span><br><span class="line"><span class="comment">//   a[i/32] |= (1&lt;&lt;(i%32));</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 初始化arr[index_loc]所有bit位为0</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * T = O(1)</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clr</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> *arr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> index_loc;</span><br><span class="line">    index_loc = n &gt;&gt; SHIFT;</span><br><span class="line">    arr[index_loc] &amp;= <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 测试n所在的bit位是否为1</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * T = O(1)</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">test</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> *arr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, flag;</span><br><span class="line">    i = <span class="number">1</span> &lt;&lt; (n &amp; MASK);</span><br><span class="line">    flag = arr[n &gt;&gt; SHIFT] &amp; i;</span><br><span class="line">    <span class="keyword">return</span> flag;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, num, space, *arr;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;num) != EOF) &#123;</span><br><span class="line">        <span class="comment">// 确定大小&amp;&amp;动态申请数组</span></span><br><span class="line">        space = num / <span class="number">32</span> + <span class="number">1</span>;</span><br><span class="line">        arr = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>) * space);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化bit位为0</span></span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt;= num; i ++)</span><br><span class="line">            clr(i, arr);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置num的比特位为1</span></span><br><span class="line">        <span class="built_in">set</span>(num, arr);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 测试</span></span><br><span class="line">        <span class="keyword">if</span> (test(num, arr)) &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"成功！\n"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"失败!\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以下将对上述代码进行解析：</p>
+<ul>
+<li><p><code>i&gt;&gt;SHIFT</code>(相当于整除运算<code>i/32</code>，保留商)</p>
+<p>其中<code>SHIFT = 5</code>，即i右移5bit，<code>2^5=32</code>,相当于<code>i/32</code>，即求出十进制i对应在数组a中的下标<code>index_loc</code>。比如<code>i=20</code>，通过<code>i&gt;&gt;SHIFT=20&gt;&gt;5=0</code> 可求得<strong>i=20的下标为0</strong>；</p>
+</li>
+<li><p><code>i &amp; MASK</code> (相当于取模运算<code>i%32</code>，保留余数)</p>
+<p>其中<code>MASK=0X1F</code>,十六进制转化为十进制为31，二进制为0001 1111，<code>i &amp;（0001 1111）</code>相当于保留i的后5位。</p>
+<p>比如<code>i=23</code>，二进制为：<code>0001 0111</code>，那么<br>  <code>0001 0111 &amp; 0001 1111 = 0001 0111</code> 十进制为：23;</p>
+<p>比如<code>i=83</code>，二进制为：<code>0000 0000 0101 0011</code>，那么</p>
+<pre><code>`0000 0000 0101 0011   &amp;   0000 0000 0001 0000 = 0000 0000 0001 1111` 十进制为：19 .
+</code></pre></li>
+<li><p><code>1&lt;&lt;(i &amp; MASK)</code></p>
+<p>相当于把1左移 <code>(i &amp; MASK)</code>位, 比如<code>(i &amp; MASK)=20</code>，那么<code>i&lt;&lt;20</code>就相当于：</p>
+<pre><code>`0000 0000 0000 0000 0000 0000 0000 0001 &gt;&gt;20 =0000 0000 0000 1000 0000 0000 0000 0000 `
+</code></pre></li>
+</ul>
+<p>-</p>
+<h3 id="算法评估"><a href="#算法评估" class="headerlink" title="算法评估"></a>算法评估</h3><h4 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h4><p>  对于数据规模为<code>n</code>的整型数据集，Bitmap算法的时间复杂度为<code>O(n)</code>, 空间复杂度为<code>O(1)</code>。 其中，存储bit位信息的数组a大小由最大数max决定。即<code>size_of(a) = max_of(b)</code>, 其中b表示原始数据集，a表示经过bitmap算法映射后的基于bit位的数组。</p>
+<p>  对于bitmap排序算法（包括bitmap映射和遍历排序两个步骤），其时间和空间复杂度取决于数据集中的最大值<code>MAX</code>。对于数据规模为<code>n</code>的整型数据集，如果采用int型数组表示bitmap信息，即每32bit为一个单元，则其时间复杂度为<code>O(max(n, MAX/32))</code>, 如果在遍历排序阶段开m个线程读，那么其时间复杂度为<code>O(max(n, (MAX/32)/m))</code>; 空间复杂度为<code>O(max(n, MAX/32))</code>。</p>
+<h4 id="优点与缺点"><a href="#优点与缺点" class="headerlink" title="优点与缺点"></a>优点与缺点</h4><ul>
+<li><p>优点</p>
+<p>(1). 运算效率高，不进行数据比较；查找，去重存储效率高，不需要遍历全部数据就可以进行。</p>
+<p>(2). 占用内存少，比如最大的数MAX=10000000；只需占用内存为MAX/8=1250000Byte=1.25M。</p>
+<p>(3). 在数据量大且重复率少的情况下，可以极大程度的压缩存储空间，并且保证有序。</p>
+<p>(4). 对于特定的，只有0，1特征值，并且含有唯一识别号的数据存储中，优势巨大，节省存储空间，查询和维护的成本。</p>
+</li>
+<li><p>缺点</p>
+<p>(1). 所有的数据不能重复，即不可对重复的数据进行排序。（针对少量重复的数据，假设其重复次数为n，则 a = {n的平方根 + 1} 表示, 可以用a-bitmap算法。比如当a=5时，则利用3-bitmap算法）。</p>
+<p>(2). 当数据类似（1，1000，10万）只有3个数据的时候，用bitmap时间复杂度和空间复杂度相当大，只有<strong>当数据比较密集</strong>时才有优势。</p>
+</li>
+</ul>
+<h3 id="应用示例"><a href="#应用示例" class="headerlink" title="应用示例"></a>应用示例</h3><h4 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h4><p>Bitmap算法适用于：</p>
+<ul>
+<li>可进行数据的快速查找，判重，删除，一般来说数据范围是int的10倍以下；</li>
+<li>去重数据而达到压缩数据；</li>
+<li>用于爬虫系统中url去重、解决全组合问题；</li>
+<li>Bitmap算法可以扩展为Bloom filter(布隆过滤器)。</li>
+</ul>
+<h4 id="问题-1：在2-5亿个整数中找出不重复的整数，约束条件时内存不足以容纳这2-5亿个整数。"><a href="#问题-1：在2-5亿个整数中找出不重复的整数，约束条件时内存不足以容纳这2-5亿个整数。" class="headerlink" title="问题 1：在2.5亿个整数中找出不重复的整数，约束条件时内存不足以容纳这2.5亿个整数。"></a>问题 1：在2.5亿个整数中找出不重复的整数，约束条件时内存不足以容纳这2.5亿个整数。</h4><p><strong>解法一：</strong>采用2-Bitmap（每个数分配2bit，00表示不存在，01表示出现一次，10表示多次，11无意义）进行，共需内存2^32 * 2 bit=1 GB内存，还可以接受。然后扫描这2.5亿个整数，查看Bitmap中相对应位，如果是00变01，01变10，10保持不变。所描完事后，查看bitmap，把对应位是01的整数输出即可。</p>
+<p><strong>解法二：</strong>也可采用进行划分小文件的方法，然后在小文件中找出不重复的整数，并排序。然后再进行归并，注意去除重复的元素。”</p>
+<h4 id="问题-2：给40亿个不重复的unsigned-int的整数，没排过序的，然后再给一个数，如何快速判断这个数是否在那40亿个数当中？"><a href="#问题-2：给40亿个不重复的unsigned-int的整数，没排过序的，然后再给一个数，如何快速判断这个数是否在那40亿个数当中？" class="headerlink" title="问题 2：给40亿个不重复的unsigned int的整数，没排过序的，然后再给一个数，如何快速判断这个数是否在那40亿个数当中？"></a>问题 2：给40亿个不重复的unsigned int的整数，没排过序的，然后再给一个数，如何快速判断这个数是否在那40亿个数当中？</h4><p><strong>解法一：</strong>可以用位图/Bitmap的方法，申请512M的内存，一个bit位代表一个unsigned int值。读入40亿个数，设置相应的bit位，读入要查询的数，查看相应bit位是否为1，为1表示存在，为0表示不存在。</p>
+<h4 id="问题-3：已知某个文件内包含一些电话号码，每个号码为8位数字，统计不同号码的个数。"><a href="#问题-3：已知某个文件内包含一些电话号码，每个号码为8位数字，统计不同号码的个数。" class="headerlink" title="问题 3：已知某个文件内包含一些电话号码，每个号码为8位数字，统计不同号码的个数。"></a>问题 3：已知某个文件内包含一些电话号码，每个号码为8位数字，统计不同号码的个数。</h4><p><strong>解法一：</strong>8位最多99 999 999，大概需要99m个bit，大概10几m字节的内存即可。 （可以理解为从0-99 999 999的数字，每个数字对应一个Bit位，所以只需要99M个Bit==1.2MBytes，这样，就用了小小的1.2M左右的内存表示了所有的8位数的电话）</p>
+<h4 id="问题-4：给定一个数组a，求所有和为SUM的两个数。"><a href="#问题-4：给定一个数组a，求所有和为SUM的两个数。" class="headerlink" title="问题 4：给定一个数组a，求所有和为SUM的两个数。"></a>问题 4：给定一个数组a，求所有和为SUM的两个数。</h4><p><strong>解法一：</strong>如果数组都是整数（负数也可以，将所有数据加上最小的负数x，SUM += 2x就可以了）。如a = [1,2,3,4,7,8]，先求a的补数组[8,7,6,5,2,1]，开辟两个数组b1,b2（最大数组长度为SUM/8/2{因为两数满足和为SUM，一个数&lt;SUM/2，另一个数也就知道了}，这样每个b数组最大内存为SUM/(8<em>2</em>1024*1024) = 128M）,使用bitmap算法和数组a分别设置b1、b2对应的位为1，b1、b2相与就可以得到和为SUM的两个数其中一个数了。</p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ul>
+<li><p><a href="https://wizardforcel.gitbooks.io/the-art-of-programming-by-july/content/06.07.html" target="_blank" rel="noopener">Bitmap 方法</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/chanshuyi/p/5287825.html" target="_blank" rel="noopener">BigMap 算法</a></p>
+</li>
+<li><a href="https://blog.csdn.net/pipisorry/article/details/64127666" target="_blank" rel="noopener">Bloom Filter 布隆过滤器</a></li>
+</ul>
+<hr>
+<p>分享人：复旦大学NiSL <strong><em>周鑫   金力  黄一博</em></strong></p>
+
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="/img/alipay.jpeg"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="/img/wepay.jpeg"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Bobo Huang</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2018/10/15/RDMA-Driven-Paxos-Consistent-Algorithm/" class="next-post btn btn-default" title='RDMA-Driven Paxos Consistent Algorithm'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">RDMA-Driven Paxos Consistent Algorithm</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: ''.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">Table of Contents</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#算法概述"><span class="toc-number">1.</span> <span class="toc-text">算法概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本原理与实现"><span class="toc-number">2.</span> <span class="toc-text">基本原理与实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Bitmap算法基本原理"><span class="toc-number">2.1.</span> <span class="toc-text">Bitmap算法基本原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Map映射表"><span class="toc-number">2.2.</span> <span class="toc-text">Map映射表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bit位移转换"><span class="toc-number">2.3.</span> <span class="toc-text">Bit位移转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bitmap算法实现（C语言）"><span class="toc-number">2.4.</span> <span class="toc-text">Bitmap算法实现（C语言）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#算法评估"><span class="toc-number">3.</span> <span class="toc-text">算法评估</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#复杂度分析"><span class="toc-number">3.1.</span> <span class="toc-text">复杂度分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#优点与缺点"><span class="toc-number">3.2.</span> <span class="toc-text">优点与缺点</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#应用示例"><span class="toc-number">4.</span> <span class="toc-text">应用示例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#适用场景"><span class="toc-number">4.1.</span> <span class="toc-text">适用场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#问题-1：在2-5亿个整数中找出不重复的整数，约束条件时内存不足以容纳这2-5亿个整数。"><span class="toc-number">4.2.</span> <span class="toc-text">问题 1：在2.5亿个整数中找出不重复的整数，约束条件时内存不足以容纳这2.5亿个整数。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#问题-2：给40亿个不重复的unsigned-int的整数，没排过序的，然后再给一个数，如何快速判断这个数是否在那40亿个数当中？"><span class="toc-number">4.3.</span> <span class="toc-text">问题 2：给40亿个不重复的unsigned int的整数，没排过序的，然后再给一个数，如何快速判断这个数是否在那40亿个数当中？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#问题-3：已知某个文件内包含一些电话号码，每个号码为8位数字，统计不同号码的个数。"><span class="toc-number">4.4.</span> <span class="toc-text">问题 3：已知某个文件内包含一些电话号码，每个号码为8位数字，统计不同号码的个数。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#问题-4：给定一个数组a，求所有和为SUM的两个数。"><span class="toc-number">4.5.</span> <span class="toc-text">问题 4：给定一个数组a，求所有和为SUM的两个数。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考文献"><span class="toc-number">5.</span> <span class="toc-text">参考文献</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2019
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>

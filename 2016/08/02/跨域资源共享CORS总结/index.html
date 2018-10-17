@@ -1,3 +1,353 @@
-<!DOCTYPE HTML><html lang=""><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1"><meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"><meta http-equiv="Cache-Control" content="no-siteapp"><meta http-equiv="Cache-Control" content="no-transform"><meta name="renderer" content="webkit|ie-comp|ie-stand"><meta name="apple-mobile-web-app-capable" content="Bobo Huang写字的地方"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="format-detection" content="telephone=no,email=no,adress=no"><meta name="browsermode" content="application"><meta name="screen-orientation" content="portrait"><link rel="dns-prefetch" href="http://yoursite.com"><meta name="robots" content="all"><meta name="google" content="all"><meta name="googlebot" content="all"><meta name="verify" content="all"><title>跨域资源共享CORS总结 | Bobo Huang写字的地方</title><link rel="alternate" href="/atom.xml" title="Bobo Huang写字的地方" type="application/atom+xml"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/css/bootstrap.min.css?rev=58b7707886bb199811bed37162c7a60a"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css?rev=8f18d7189b91ee2c0129163e3c179bf3"><div class="hide"><script type="text/javascript">var cnzz_protocol="https:"==document.location.protocol?" https://":" http://";document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='"+cnzz_protocol+"s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"))</script></div></head><!--[if lte IE 8]><style>
+<!DOCTYPE HTML>
+<html lang="">
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Bobo Huang写字的地方">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+
+<title>跨域资源共享CORS总结 | Bobo Huang写字的地方</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="Bobo Huang写字的地方" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
     html{ font-size: 1em }
-</style><![endif]--><!--[if lte IE 9]><div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div><![endif]--><body><header class="main-header" style="background-image:url(/img/banner.jpg)"><div class="main-header-box"><a class="header-avatar" href="/" title="Bob Huang"><img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block"></a><div class="branding"><h2>从未如此简单有趣～</h2></div></div></header><nav class="main-navigation"><div class="container"><div class="row"><div class="col-sm-12"><div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav"><span class="sr-only"></span><i class="fa fa-bars"></i></span> <a class="navbar-brand" href="http://yoursite.com">Bobo Huang写字的地方</a></div><div class="collapse navbar-collapse" id="main-menu"><ul class="menu"><li role="presentation" class="text-center"><a href="/"><i class="fa fa-home"></i> Home</a></li><li role="presentation" class="text-center"><a href="/tags/算法/"><i class="fa fa-tasks"></i> 算法</a></li><li role="presentation" class="text-center"><a href="/categories/闲思碎语/"><i class="fa fa-tags"></i> 闲思碎语</a></li><li role="presentation" class="text-center"><a href="/categories/每周技术分享/"><i class="fa fa-share"></i> 每周技术分享</a></li><li role="presentation" class="text-center"><a href="/About"><i class="fa fa-user"></i> About Me</a></li></ul></div></div></div></div></nav><section class="content-wrap"><div class="container"><div class="row"><main class="col-md-8 main-content m-post"><p id="process"></p><article class="post"><div class="post-head"><h1 id="跨域资源共享CORS总结">跨域资源共享CORS总结</h1><div class="post-meta"><span class="categories-meta fa-wrap"><i class="fa fa-folder-open-o"></i> <a href="/categories/前端">前端</a></span><span class="fa-wrap"><i class="fa fa-tags"></i> <span class="tags-meta"><a href="/tags/JAVA WEB" title="JAVA WEB">JAVA WEB</a> <a href="/tags/REST API" title="REST API">REST API</a> <a href="/tags/HTTP" title="HTTP">HTTP</a></span></span><span class="fa-wrap"><i class="fa fa-clock-o"></i> <span class="date-meta">2016/08/02</span></span></div><p class="fa fa-exclamation-triangle warning">本文于<strong>806</strong>天之前发表，文中内容可能已经过时。</p></div><div class="post-body post-content"><blockquote><p>摘要：CORS是一个W3C标准，全程是“跨域资源共享”（Cross-origin resource sharing）。CORS允许浏览器向跨源服务器发出XMLHttpRequest请求，以克服AJAX只能基于同源策略的使用限制。本文将详细介绍CORS的内部机制。</p></blockquote><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>&emsp;&emsp;CORS需要浏览器与服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。<br>&emsp;&emsp;整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求（如添加了Origin : <a href="http://localhost:63343，Access-Control-Request-Headers" target="_blank" rel="noopener">http://localhost:63343，Access-Control-Request-Headers</a> : accept, content-type，Access-Control-Request-Method : POST），但是用户不会有感觉。<br>&emsp;&emsp;因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口或者约定，就可以跨源通信。</p><h3 id="两种请求"><a href="#两种请求" class="headerlink" title="两种请求"></a>两种请求</h3><p>&emsp;&emsp;浏览器把CORS请求分成：简单请求（Simple Request）和非简单请求（Not-so simple request）。<br>&emsp;&emsp;只要同时满足一下两个条件，就属于简单请求。<br>&emsp;&emsp;（1）请求方法是HEAD/GET/POST三种方法之一；<br>&emsp;&emsp;（2）HTTP的头信息不超出一下几种字段：Accept/Accept-Encoding/Accept-Language/Cache-Control/Connection/Cookie/Host/If-Modified-Since/Referer/User-Agent/Content-Type/Content-Language。<strong>其中Content-Type仅限于三个值：application/x-www-form-urlencoded、multipart/form-data、text/pain</strong>。<br>&emsp;&emsp;凡是不满足上面两个条件，就属于非简单请求。浏览器对于两种请求的处理是不一样的。</p><h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><h4 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h4><p>&emsp;&emsp;对于简单请求，浏览器直接发出CORS请求，在HTTP HEADER中增加了Origin字段。如下：<br></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">POST /nlp/segment HTTP/1.1</span><br><span class="line">Host: 10.1.222.80:8084</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Length: 90</span><br><span class="line">Accept: */*; q=0.01</span><br><span class="line">Origin: http://localhost:63343</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36</span><br><span class="line">Content-Type: application/ x-www-form-urlencoded;charset=UTF-8</span><br><span class="line">Referer: http://localhost:63343/BZZZ/bz.html?_ijt=eu8vkf2u50ccl1gshpr4lhjt3r</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8</span><br></pre></td></tr></table></figure><p></p><p>&emsp;&emsp;上面的头信息中，Origin字段用来说明，本次请求来自哪个源（协议+域名+端口）。服务器根据这个值，决定是否同意这次请求。<br>如果Origin制定的源不在许可范围之内，服务器会返回一个正常的HTTP回应。浏览器发现Http Response头信息中没有包含Access-Control-Allow-Origin字段，就判断出错并抛出一个错误，被XMLHttpRequest的onerror回调函数捕获。注意，这种错误无法通过状态码识别，因为HTTP回应的状态码有可能是200.<br>&emsp;&emsp;如果Origin制定的域名在许可范围内，服务器返回的响应中多出几个头信息字段：<br></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Headers:Content-Type</span><br><span class="line">Access-Control-Allow-Methods:GET,POST,PUT,OPTIONS,DELETE</span><br><span class="line">Access-Control-Expose-Headers: FooBar</span><br><span class="line">Access-Control-Allow-Origin:*</span><br><span class="line">Content-Type:text/html; charset=UTF-8</span><br></pre></td></tr></table></figure><p></p><p>&emsp;&emsp;上面的头信息中，有三个与CORS请求相关的字段，均以Access-Control-开头。<br>（1）. Access-Control-Allow-Origin<br>&emsp;&emsp;该字段是必须的，它的值要么是请求时Origin字段的值，要么是一个*，表示接受任意域名的请求。<br>（2）. Access-Control-Allow-Credentials<br>&emsp;&emsp;该字段可选，它是一个Bool值，表示是否允许发送Cookie。默认情况下，Cookie不包括在CORS请求中，设为true，即表示服务器明确许可，Cookie可以包含在请求中，一起发给服务器。这个值只能设为true，没有false取值，如果服务器不要浏览器发送Cookie，删除该字段即可。<br>（3）. Access-Control-Allow-Methods<br>&emsp;&emsp;该字段可选，如果允许跨域请求的方法是PUT/GET/POST/OPTIONS/DELETE等其中的一项或几项，就需要设置该字段的值为”PUT,GET,POST,OPTIONS”。<br>（4）. Access-Control-Expose-Headers<br>&emsp;&emsp;该字段可选，CORS请求时，XMLHttpRequest对象的getResponseHeader()方法只能拿到6哥基本字段：Cache-Control、Content-Language、Content-Type、Expires、Last-Modified、Pragma。如果想拿到其他字段，就必须在Access-Control-Expose-Headers字段中指定。上面的例子制定，getResponseHeader(’FooBar’)可以返回FooBar字段的值。<br>（5）. Access-Control-Allow-Headers<br>&emsp;&emsp;该字段可选，CORS请求时，如果是自定义Http Request Header，就必须在该字段中指定对应的Header Name，如例子中自定义Header为’Test’，那么需要在服务器端制定该字段为’Test’。</p><h4 id="withCredentials属性"><a href="#withCredentials属性" class="headerlink" title="withCredentials属性"></a>withCredentials属性</h4><p>&emsp;&emsp;上面提到CORS请求默认不发送Cookie和HTTP认证信息。如果要把Cookie发到服务器，一方面要服务器同意，指定Access-Control-Allow-Credentials字段。<br></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Credentials: true</span><br></pre></td></tr></table></figure><p></p><p>&emsp;&emsp;另外一方面，开发者必须在AJAX请求中打开withCredentials属性。如下：<br></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var xhr = new XMLHttpRequest();</span><br><span class="line">xhr.withCredentials = true;</span><br></pre></td></tr></table></figure><p></p><p>&emsp;&emsp;否则，即使服务器同意发送Cookie，浏览器也不会发送。或者服务器要求设置Cookie，浏览器也不会处理。如果省略withCredentials字段设置，有些浏览器还是会一起发送Cookie。这时需要显示关闭withCredentials。<br>xhr.withCredentials = false;<br>&emsp;&emsp;需要注意的是，如果发送Cookie，Access-Control-Allow-Origin就不能设为”*”，必须制定明确的、与请求网页一直的域名。同时Cookie依然遵循同源侧策略，只有用服务器域名设置设置的Cookie才会上传，其他域名的Cookie并不会上传，且（跨源）发起请求的网页代码中document.cookie无法读取服务器域名下的Cookie。</p><h3 id="非简单请求"><a href="#非简单请求" class="headerlink" title="非简单请求"></a>非简单请求</h3><h4 id="预检请求"><a href="#预检请求" class="headerlink" title="预检请求"></a>预检请求</h4><p>&emsp;&emsp;非简单请求是对服务器有特殊要求的请求，比如请求方法是PUT/DELETE，或者Content-Type字段的类型是application/json。<br>非简单请求的CORS请求，会在正式itongxin之前，增加爱一次HTTP查询请求，叫预检请求（preflight）。<br>&emsp;&emsp;浏览器现询问服务器，当前网页所在的域名是否在服务器的许可名单中，以及可以使用哪些HTTP动词和头信息字段。只有得到肯定答复，浏览器才会发出正式的XMLHttpRequest请求，否则就报错。下面是一段浏览器的JS脚本：<br></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var test1 = &#123;method:&quot;segment&quot;, format:&quot;json&quot;, message:[&quot;我是中国人！&quot;,&quot;欢迎来到中国&quot;]&#125;;</span><br><span class="line">$.ajax(&#123;</span><br><span class="line">            url : &quot;http://10.1.222.80:8084/nlp/segment&quot;,</span><br><span class="line">            type : &quot;post&quot;,</span><br><span class="line">            dataType : &quot;json&quot;,</span><br><span class="line">            contentType:&quot;application/json;charset=utf-8&quot;,</span><br><span class="line">            data :JSON.stringify(test1),</span><br><span class="line">            crossDomain: true,</span><br><span class="line">            /*headers:&#123;</span><br><span class="line">              &quot;Content-Type&quot;:&quot;application/x-www-form-urlencoded&quot;</span><br><span class="line">            &#125;,*/</span><br><span class="line">            timeout : 10000</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p></p><p>&emsp;&emsp;上面的请求中是Content-Type为application/json的请求。浏览器认为这是一个非简单请求，自动向服务器发送一个预检请求，要求服务器确认可以这样请求。下面是预检请求的HTTP头信息：<br></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">OPTIONS /nlp/segment HTTP/1.1</span><br><span class="line">Host: 10.1.222.80:8084</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Access-Control-Request-Method: POST</span><br><span class="line">Origin: http://localhost:63343</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36</span><br><span class="line">Access-Control-Request-Headers: accept, content-type</span><br><span class="line">Accept: */*</span><br><span class="line">Referer: http://localhost:63343/BZZZ/bz.html?_ijt=eu8vkf2u50ccl1gshpr4lhjt3r</span><br><span class="line">Accept-Encoding: gzip, deflate, sdch</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8</span><br></pre></td></tr></table></figure><p></p><p>&emsp;&emsp;预检请求使用的请求方法是OPTIONS，表示这个请求用来询问。头信息中关键字段是Origin，表示请求来自哪个源。<br>除了Origin字段，预检请求的头信息还包括两个特殊字段：<br>&emsp;&emsp;（1）. Access-Control-Request-Method<br>&emsp;&emsp;该字段是必须的，用来列出浏览器的CORS请求会用到哪些HTTP方法，例子中是POST。<br>&emsp;&emsp;（2）. Access-Control-Request-Headers<br>&emsp;&emsp;该字段是都好分割的字符串，指定浏览器CORS请求会额外发送的头信息字段，上面的例子默认application/json对应的额外字段是”Content-Type”。</p><h4 id="预检请求的回应Response"><a href="#预检请求的回应Response" class="headerlink" title="预检请求的回应Response"></a>预检请求的回应Response</h4><p>&emsp;&emsp;服务器收到预检请求后，检查Origin、Access-Control-Request-Method和Access-Control-Request-Headers字段以后，确认允许跨源请求，并做出回应。如下：<br></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: text/html; charset=UTF-8</span><br><span class="line">Connection: close</span><br><span class="line">Time-Used: 25ms</span><br><span class="line">Content-Length-UnGzipped: 7</span><br><span class="line">Access-Control-Allow-Origin: *</span><br><span class="line">Access-Control-Allow-Methods: GET,POST,PUT,OPTIONS,DELETE</span><br><span class="line">Access-Control-Allow-Headers: Content-Type</span><br><span class="line">Content-Encoding: gzip</span><br><span class="line">Content-Length: 33</span><br></pre></td></tr></table></figure><p></p><p>&emsp;&emsp;上面的Http Response中，关键是Access-Control-Allow-Origin字段，表示<a href="http://localhost:63343可以请求数据，该字段可以设为”*”，表示同意任意跨源请求。" target="_blank" rel="noopener">http://localhost:63343可以请求数据，该字段可以设为”*”，表示同意任意跨源请求。</a><br>&emsp;&emsp;如果服务器否定了预检请求，会返回一个正常的HTTP Response，但是没有任何CORS相关的头信息字段。这时候浏览器认为i额服务器不同意预检请求，因此出发一个错误，被XMLHttpRequest对象的onerror毁掉函数捕获。控制台会打印出如下报错信息。<br></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">XMLHttpRequest cannot load http://localhost:63343.</span><br><span class="line">Origin http://localhost:63343 is not allowed by Access-Control-Allow-Origin.</span><br></pre></td></tr></table></figure><p></p><p>&emsp;&emsp;服务器响应的CORS其他相关字段如下：<br></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin: *</span><br><span class="line">Access-Control-Allow-Methods: GET,POST,PUT,OPTIONS,DELETE</span><br><span class="line">Access-Control-Allow-Headers: Content-Type</span><br></pre></td></tr></table></figure><p></p><p>&emsp;&emsp;（1）. Access-Control-Allow-Methods<br>&emsp;&emsp;该字段是必需的，其取值是逗号分割的字符串，表明服务器支持的所有跨域请求的方法。注意，返回的是所有支持的方法，而不单是浏览器请求的哪个方法。这个是为了避免多次预检请求。<br>&emsp;&emsp;（2）. Access-Control-Allow-Headers<br>&emsp;&emsp;如果浏览器请求包括Access-Control-Allow-Headers字段，则该字段是必须的，其取值是一个逗号分割的字符串，表明服务器支持的所有头信息字段，不限于浏览器在预检中请求的字段。<br>&emsp;&emsp;（3）. Access-Control-Allow-Credentials<br>&emsp;&emsp;该字段与简单请求时字段含义相同。<br>&emsp;&emsp;（4）. Access-Control-Max-Age<br>&emsp;&emsp;该字段可选，用来制定本次预检请求的有效期，单位为秒。缓存于浏览器中，在有效期中，不需要发出另一条预检请求。</p><h4 id="浏览器的正常请求和回应"><a href="#浏览器的正常请求和回应" class="headerlink" title="浏览器的正常请求和回应"></a>浏览器的正常请求和回应</h4><p>&emsp;&emsp;一旦服务器通过了预检请求，以后每次浏览器正常的CORS请求就都与简单请求一样，包括Origin字段信息。服务器的回应也会有Access-Control-Allow-Origin字段。</p><h3 id="与JSONP比较"><a href="#与JSONP比较" class="headerlink" title="与JSONP比较"></a>与JSONP比较</h3><p>&emsp;&emsp;CORS与Jsonp使用目的相同，但是Jsonp只支持GET请求，CORS支持所有类型的HTTP请求。JSONP的有时在于支持老式浏览器，以及向不支持CORS的网站请求数据。</p><hr><p><strong><em>黄博博</em></strong><br><strong><em>2016年8月2日</em></strong></p></div><div class="reward"><div class="reward-wrap">赏<div class="reward-box"><span class="reward-type"><img class="alipay" src="/img/alipay.jpeg"><b>支付宝打赏</b></span> <span class="reward-type"><img class="wechat" src="/img/wepay.jpeg"><b>微信打赏</b></span></div></div><p class="reward-tip">赞赏是不耍流氓的鼓励</p></div><div class="post-footer"><div>转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Bobo Huang</a></div><div></div></div></article><div class="article-nav prev-next-wrap clearfix"><a href="/2016/08/04/提高程序员编程效率的好习惯/" class="pre-post btn btn-default" title="提高程序员编程效率的好习惯"><i class="fa fa-angle-left fa-fw"></i> <span class="hidden-lg">上一篇</span> <span class="hidden-xs">提高程序员编程效率的好习惯</span></a></div><div id="comments"><div id="vcomments" class="valine"></div><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="/assets/valine.min.js"></script><script>new Valine({av:AV,el:"#vcomments",appId:"xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz",appKey:"erIpQac4azoCmgfBB7Dl9maa",placeholder:"说点什么吧",notify:!1,verify:!1,avatar:"mm",meta:"nick,mail".split(","),pageSize:"10",path:window.location.pathname,lang:"".toLowerCase()})</script></div></main><aside id="article-toc" role="navigation" class="col-md-4"><div class="widget"><h3 class="title">Table of Contents</h3><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#两种请求"><span class="toc-number">2.</span> <span class="toc-text">两种请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单请求"><span class="toc-number">3.</span> <span class="toc-text">简单请求</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本流程"><span class="toc-number">3.1.</span> <span class="toc-text">基本流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#withCredentials属性"><span class="toc-number">3.2.</span> <span class="toc-text">withCredentials属性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非简单请求"><span class="toc-number">4.</span> <span class="toc-text">非简单请求</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#预检请求"><span class="toc-number">4.1.</span> <span class="toc-text">预检请求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#预检请求的回应Response"><span class="toc-number">4.2.</span> <span class="toc-text">预检请求的回应Response</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#浏览器的正常请求和回应"><span class="toc-number">4.3.</span> <span class="toc-text">浏览器的正常请求和回应</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与JSONP比较"><span class="toc-number">5.</span> <span class="toc-text">与JSONP比较</span></a></li></ol></div></aside></div></div></section><footer class="main-footer"><div class="container"><div class="row"></div></div></footer><a id="back-to-top" class="icon-btn hide"><i class="fa fa-chevron-up"></i></a><div class="copyright"><div class="container"><div class="row"><div class="col-sm-12"><div class="busuanzi"></div></div><div class="col-sm-12"><span>Copyright &copy; 2019</span> | <span>Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a></span> | <span>Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a></span></div></div></div></div><script src="/js/app.js?rev=f25479a641009e7423ae98c6f819957f"></script></body></html>
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Bob Huang'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 从未如此简单有趣～ </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">Bobo Huang写字的地方</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa fa-home"></i>  Home</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/算法/"><i class="fa fa-tasks"></i>  算法</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/闲思碎语/"><i class="fa fa-tags"></i>  闲思碎语</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/每周技术分享/"><i class="fa fa-share"></i>  每周技术分享</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/About"><i class="fa fa-user"></i>  About Me</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="跨域资源共享CORS总结">
+            
+	            跨域资源共享CORS总结
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/前端">
+            前端
+        </a>
+    </span>
+    
+
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/REST API" title='REST API'>
+                        REST API
+                    </a>
+                
+                    <a href="/tags/HTTP" title='HTTP'>
+                        HTTP
+                    </a>
+                
+                    <a href="/tags/JAVA WEB" title='JAVA WEB'>
+                        JAVA WEB
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2016/08/02</span>
+        </span>
+        
+    
+</div>
+
+            
+            
+            <p class="fa fa-exclamation-triangle warning">
+                本文于<strong>806</strong>天之前发表，文中内容可能已经过时。
+            </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <blockquote>
+<p>摘要：CORS是一个W3C标准，全程是“跨域资源共享”（Cross-origin resource sharing）。CORS允许浏览器向跨源服务器发出XMLHttpRequest请求，以克服AJAX只能基于同源策略的使用限制。本文将详细介绍CORS的内部机制。</p>
+</blockquote>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>&emsp;&emsp;CORS需要浏览器与服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。<br>&emsp;&emsp;整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求（如添加了Origin : <a href="http://localhost:63343，Access-Control-Request-Headers" target="_blank" rel="noopener">http://localhost:63343，Access-Control-Request-Headers</a> : accept, content-type，Access-Control-Request-Method : POST），但是用户不会有感觉。<br>&emsp;&emsp;因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口或者约定，就可以跨源通信。</p>
+<h3 id="两种请求"><a href="#两种请求" class="headerlink" title="两种请求"></a>两种请求</h3><p>&emsp;&emsp;浏览器把CORS请求分成：简单请求（Simple Request）和非简单请求（Not-so simple request）。<br>&emsp;&emsp;只要同时满足一下两个条件，就属于简单请求。<br>&emsp;&emsp;（1）请求方法是HEAD/GET/POST三种方法之一；<br>&emsp;&emsp;（2）HTTP的头信息不超出一下几种字段：Accept/Accept-Encoding/Accept-Language/Cache-Control/Connection/Cookie/Host/If-Modified-Since/Referer/User-Agent/Content-Type/Content-Language。<strong>其中Content-Type仅限于三个值：application/x-www-form-urlencoded、multipart/form-data、text/pain</strong>。<br>&emsp;&emsp;凡是不满足上面两个条件，就属于非简单请求。浏览器对于两种请求的处理是不一样的。</p>
+<h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><h4 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h4><p>&emsp;&emsp;对于简单请求，浏览器直接发出CORS请求，在HTTP HEADER中增加了Origin字段。如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">POST /nlp/segment HTTP/1.1</span><br><span class="line">Host: 10.1.222.80:8084</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Length: 90</span><br><span class="line">Accept: */*; q=0.01</span><br><span class="line">Origin: http://localhost:63343</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36</span><br><span class="line">Content-Type: application/ x-www-form-urlencoded;charset=UTF-8</span><br><span class="line">Referer: http://localhost:63343/BZZZ/bz.html?_ijt=eu8vkf2u50ccl1gshpr4lhjt3r</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;上面的头信息中，Origin字段用来说明，本次请求来自哪个源（协议+域名+端口）。服务器根据这个值，决定是否同意这次请求。<br>如果Origin制定的源不在许可范围之内，服务器会返回一个正常的HTTP回应。浏览器发现Http Response头信息中没有包含Access-Control-Allow-Origin字段，就判断出错并抛出一个错误，被XMLHttpRequest的onerror回调函数捕获。注意，这种错误无法通过状态码识别，因为HTTP回应的状态码有可能是200.<br>&emsp;&emsp;如果Origin制定的域名在许可范围内，服务器返回的响应中多出几个头信息字段：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Headers:Content-Type</span><br><span class="line">Access-Control-Allow-Methods:GET,POST,PUT,OPTIONS,DELETE</span><br><span class="line">Access-Control-Expose-Headers: FooBar</span><br><span class="line">Access-Control-Allow-Origin:*</span><br><span class="line">Content-Type:text/html; charset=UTF-8</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;上面的头信息中，有三个与CORS请求相关的字段，均以Access-Control-开头。<br>（1）.    Access-Control-Allow-Origin<br>&emsp;&emsp;该字段是必须的，它的值要么是请求时Origin字段的值，要么是一个*，表示接受任意域名的请求。<br>（2）.    Access-Control-Allow-Credentials<br>&emsp;&emsp;该字段可选，它是一个Bool值，表示是否允许发送Cookie。默认情况下，Cookie不包括在CORS请求中，设为true，即表示服务器明确许可，Cookie可以包含在请求中，一起发给服务器。这个值只能设为true，没有false取值，如果服务器不要浏览器发送Cookie，删除该字段即可。<br>（3）.    Access-Control-Allow-Methods<br>&emsp;&emsp;该字段可选，如果允许跨域请求的方法是PUT/GET/POST/OPTIONS/DELETE等其中的一项或几项，就需要设置该字段的值为”PUT,GET,POST,OPTIONS”。<br>（4）.    Access-Control-Expose-Headers<br>&emsp;&emsp;该字段可选，CORS请求时，XMLHttpRequest对象的getResponseHeader()方法只能拿到6哥基本字段：Cache-Control、Content-Language、Content-Type、Expires、Last-Modified、Pragma。如果想拿到其他字段，就必须在Access-Control-Expose-Headers字段中指定。上面的例子制定，getResponseHeader(’FooBar’)可以返回FooBar字段的值。<br>（5）.    Access-Control-Allow-Headers<br>&emsp;&emsp;该字段可选，CORS请求时，如果是自定义Http Request Header，就必须在该字段中指定对应的Header Name，如例子中自定义Header为’Test’，那么需要在服务器端制定该字段为’Test’。</p>
+<h4 id="withCredentials属性"><a href="#withCredentials属性" class="headerlink" title="withCredentials属性"></a>withCredentials属性</h4><p>&emsp;&emsp;上面提到CORS请求默认不发送Cookie和HTTP认证信息。如果要把Cookie发到服务器，一方面要服务器同意，指定Access-Control-Allow-Credentials字段。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Credentials: true</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;另外一方面，开发者必须在AJAX请求中打开withCredentials属性。如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var xhr = new XMLHttpRequest();</span><br><span class="line">xhr.withCredentials = true;</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;否则，即使服务器同意发送Cookie，浏览器也不会发送。或者服务器要求设置Cookie，浏览器也不会处理。如果省略withCredentials字段设置，有些浏览器还是会一起发送Cookie。这时需要显示关闭withCredentials。<br>xhr.withCredentials = false;<br>&emsp;&emsp;需要注意的是，如果发送Cookie，Access-Control-Allow-Origin就不能设为”*”，必须制定明确的、与请求网页一直的域名。同时Cookie依然遵循同源侧策略，只有用服务器域名设置设置的Cookie才会上传，其他域名的Cookie并不会上传，且（跨源）发起请求的网页代码中document.cookie无法读取服务器域名下的Cookie。</p>
+<h3 id="非简单请求"><a href="#非简单请求" class="headerlink" title="非简单请求"></a>非简单请求</h3><h4 id="预检请求"><a href="#预检请求" class="headerlink" title="预检请求"></a>预检请求</h4><p>&emsp;&emsp;非简单请求是对服务器有特殊要求的请求，比如请求方法是PUT/DELETE，或者Content-Type字段的类型是application/json。<br>非简单请求的CORS请求，会在正式itongxin之前，增加爱一次HTTP查询请求，叫预检请求（preflight）。<br>&emsp;&emsp;浏览器现询问服务器，当前网页所在的域名是否在服务器的许可名单中，以及可以使用哪些HTTP动词和头信息字段。只有得到肯定答复，浏览器才会发出正式的XMLHttpRequest请求，否则就报错。下面是一段浏览器的JS脚本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var test1 = &#123;method:&quot;segment&quot;, format:&quot;json&quot;, message:[&quot;我是中国人！&quot;,&quot;欢迎来到中国&quot;]&#125;;</span><br><span class="line">$.ajax(&#123;</span><br><span class="line">            url : &quot;http://10.1.222.80:8084/nlp/segment&quot;,</span><br><span class="line">            type : &quot;post&quot;,</span><br><span class="line">            dataType : &quot;json&quot;,</span><br><span class="line">            contentType:&quot;application/json;charset=utf-8&quot;,</span><br><span class="line">            data :JSON.stringify(test1),</span><br><span class="line">            crossDomain: true,</span><br><span class="line">            /*headers:&#123;</span><br><span class="line">              &quot;Content-Type&quot;:&quot;application/x-www-form-urlencoded&quot;</span><br><span class="line">            &#125;,*/</span><br><span class="line">            timeout : 10000</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;上面的请求中是Content-Type为application/json的请求。浏览器认为这是一个非简单请求，自动向服务器发送一个预检请求，要求服务器确认可以这样请求。下面是预检请求的HTTP头信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">OPTIONS /nlp/segment HTTP/1.1</span><br><span class="line">Host: 10.1.222.80:8084</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Access-Control-Request-Method: POST</span><br><span class="line">Origin: http://localhost:63343</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36</span><br><span class="line">Access-Control-Request-Headers: accept, content-type</span><br><span class="line">Accept: */*</span><br><span class="line">Referer: http://localhost:63343/BZZZ/bz.html?_ijt=eu8vkf2u50ccl1gshpr4lhjt3r</span><br><span class="line">Accept-Encoding: gzip, deflate, sdch</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;预检请求使用的请求方法是OPTIONS，表示这个请求用来询问。头信息中关键字段是Origin，表示请求来自哪个源。<br>除了Origin字段，预检请求的头信息还包括两个特殊字段：<br>&emsp;&emsp;（1）.    Access-Control-Request-Method<br>&emsp;&emsp;该字段是必须的，用来列出浏览器的CORS请求会用到哪些HTTP方法，例子中是POST。<br>&emsp;&emsp;（2）.    Access-Control-Request-Headers<br>&emsp;&emsp;该字段是都好分割的字符串，指定浏览器CORS请求会额外发送的头信息字段，上面的例子默认application/json对应的额外字段是”Content-Type”。</p>
+<h4 id="预检请求的回应Response"><a href="#预检请求的回应Response" class="headerlink" title="预检请求的回应Response"></a>预检请求的回应Response</h4><p>&emsp;&emsp;服务器收到预检请求后，检查Origin、Access-Control-Request-Method和Access-Control-Request-Headers字段以后，确认允许跨源请求，并做出回应。如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: text/html; charset=UTF-8</span><br><span class="line">Connection: close</span><br><span class="line">Time-Used: 25ms</span><br><span class="line">Content-Length-UnGzipped: 7</span><br><span class="line">Access-Control-Allow-Origin: *</span><br><span class="line">Access-Control-Allow-Methods: GET,POST,PUT,OPTIONS,DELETE</span><br><span class="line">Access-Control-Allow-Headers: Content-Type</span><br><span class="line">Content-Encoding: gzip</span><br><span class="line">Content-Length: 33</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;上面的Http Response中，关键是Access-Control-Allow-Origin字段，表示<a href="http://localhost:63343可以请求数据，该字段可以设为”*”，表示同意任意跨源请求。" target="_blank" rel="noopener">http://localhost:63343可以请求数据，该字段可以设为”*”，表示同意任意跨源请求。</a><br>&emsp;&emsp;如果服务器否定了预检请求，会返回一个正常的HTTP Response，但是没有任何CORS相关的头信息字段。这时候浏览器认为i额服务器不同意预检请求，因此出发一个错误，被XMLHttpRequest对象的onerror毁掉函数捕获。控制台会打印出如下报错信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">XMLHttpRequest cannot load http://localhost:63343.</span><br><span class="line">Origin http://localhost:63343 is not allowed by Access-Control-Allow-Origin.</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;服务器响应的CORS其他相关字段如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin: *</span><br><span class="line">Access-Control-Allow-Methods: GET,POST,PUT,OPTIONS,DELETE</span><br><span class="line">Access-Control-Allow-Headers: Content-Type</span><br></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;（1）.    Access-Control-Allow-Methods<br>&emsp;&emsp;该字段是必需的，其取值是逗号分割的字符串，表明服务器支持的所有跨域请求的方法。注意，返回的是所有支持的方法，而不单是浏览器请求的哪个方法。这个是为了避免多次预检请求。<br>&emsp;&emsp;（2）.    Access-Control-Allow-Headers<br>&emsp;&emsp;如果浏览器请求包括Access-Control-Allow-Headers字段，则该字段是必须的，其取值是一个逗号分割的字符串，表明服务器支持的所有头信息字段，不限于浏览器在预检中请求的字段。<br>&emsp;&emsp;（3）.    Access-Control-Allow-Credentials<br>&emsp;&emsp;该字段与简单请求时字段含义相同。<br>&emsp;&emsp;（4）.    Access-Control-Max-Age<br>&emsp;&emsp;该字段可选，用来制定本次预检请求的有效期，单位为秒。缓存于浏览器中，在有效期中，不需要发出另一条预检请求。</p>
+<h4 id="浏览器的正常请求和回应"><a href="#浏览器的正常请求和回应" class="headerlink" title="浏览器的正常请求和回应"></a>浏览器的正常请求和回应</h4><p>&emsp;&emsp;一旦服务器通过了预检请求，以后每次浏览器正常的CORS请求就都与简单请求一样，包括Origin字段信息。服务器的回应也会有Access-Control-Allow-Origin字段。</p>
+<h3 id="与JSONP比较"><a href="#与JSONP比较" class="headerlink" title="与JSONP比较"></a>与JSONP比较</h3><p>&emsp;&emsp;CORS与Jsonp使用目的相同，但是Jsonp只支持GET请求，CORS支持所有类型的HTTP请求。JSONP的有时在于支持老式浏览器，以及向不支持CORS的网站请求数据。</p>
+<hr>
+<p><strong><em>黄博博</em></strong><br><strong><em>2016年8月2日</em></strong></p>
+
+    </div>
+    
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="/img/alipay.jpeg"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="/img/wepay.jpeg"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Bobo Huang</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2016/08/04/提高程序员编程效率的好习惯/" class="pre-post btn btn-default" title='提高程序员编程效率的好习惯'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">提高程序员编程效率的好习惯</span>
+        </a>
+    
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: ''.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">Table of Contents</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#两种请求"><span class="toc-number">2.</span> <span class="toc-text">两种请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单请求"><span class="toc-number">3.</span> <span class="toc-text">简单请求</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本流程"><span class="toc-number">3.1.</span> <span class="toc-text">基本流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#withCredentials属性"><span class="toc-number">3.2.</span> <span class="toc-text">withCredentials属性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非简单请求"><span class="toc-number">4.</span> <span class="toc-text">非简单请求</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#预检请求"><span class="toc-number">4.1.</span> <span class="toc-text">预检请求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#预检请求的回应Response"><span class="toc-number">4.2.</span> <span class="toc-text">预检请求的回应Response</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#浏览器的正常请求和回应"><span class="toc-number">4.3.</span> <span class="toc-text">浏览器的正常请求和回应</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#与JSONP比较"><span class="toc-number">5.</span> <span class="toc-text">与JSONP比较</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2019
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
