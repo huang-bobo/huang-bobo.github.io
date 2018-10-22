@@ -1,216 +1,96 @@
-<!DOCTYPE HTML>
-<html lang="">
+<!DOCTYPE html>
+<html>
 <head>
-    <!--Setting-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta http-equiv="Cache-Control" content="no-siteapp">
-    <meta http-equiv="Cache-Control" content="no-transform">
-    <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <meta name="apple-mobile-web-app-capable" content="Bobo Huang写字的地方">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no,email=no,adress=no">
-    <meta name="browsermode" content="application">
-    <meta name="screen-orientation" content="portrait">
-    <link rel="dns-prefetch" href="https://huangyibo.github.io">
-    <!--SEO-->
+  <meta charset="utf-8">
+  
 
-
-
-
-
-<meta name="robots" content="all" />
-<meta name="google" content="all" />
-<meta name="googlebot" content="all" />
-<meta name="verify" content="all" />
-    <!--Title-->
-
-
-<title>Web网站高并发量的解决方案 | Bobo Huang写字的地方</title>
-
-
+  
+  <title>Web网站高并发量的解决方案 | Bobo Huang写字的地方</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="摘要：  一个小型的网站，可以使用最简单的html静态页面就实现了，配合一些图片达到美化效果，所有的页面均存放在一个目录下，这样的网站对系统架构、性能的要求都很简单。随着互联网业务的不断丰富，网站相关的技术经过这些年的发展，已经细分到很细的方方面面，尤其对于大型网站来说，所采用的技术更是涉及面非常广，从硬件到软件、编程语言、数据库、WebServer、防火墙等各个领域都有了很高的要求，已经不是原来">
+<meta name="keywords" content="程序猿,JAVA WEB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web网站高并发量的解决方案">
+<meta property="og:url" content="https://huangyibo.github.io/2016/08/04/Web网站高并发量的解决方案/index.html">
+<meta property="og:site_name" content="Bobo Huang写字的地方">
+<meta property="og:description" content="摘要：  一个小型的网站，可以使用最简单的html静态页面就实现了，配合一些图片达到美化效果，所有的页面均存放在一个目录下，这样的网站对系统架构、性能的要求都很简单。随着互联网业务的不断丰富，网站相关的技术经过这些年的发展，已经细分到很细的方方面面，尤其对于大型网站来说，所采用的技术更是涉及面非常广，从硬件到软件、编程语言、数据库、WebServer、防火墙等各个领域都有了很高的要求，已经不是原来">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-15T23:15:44.702Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Web网站高并发量的解决方案">
+<meta name="twitter:description" content="摘要：  一个小型的网站，可以使用最简单的html静态页面就实现了，配合一些图片达到美化效果，所有的页面均存放在一个目录下，这样的网站对系统架构、性能的要求都很简单。随着互联网业务的不断丰富，网站相关的技术经过这些年的发展，已经细分到很细的方方面面，尤其对于大型网站来说，所采用的技术更是涉及面非常广，从硬件到软件、编程语言、数据库、WebServer、防火墙等各个领域都有了很高的要求，已经不是原来">
+  
     <link rel="alternate" href="/atom.xml" title="Bobo Huang写字的地方" type="application/atom+xml">
-
-
-    <link rel="icon" href="/favicon.ico">
-
-    
-
-
-
-<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
-<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/css/style.css?rev=@@hash">
-
-
-
-
-    
-	<div class="hide">
-		<script type="text/javascript">
-			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
-		</script>
-	</div>
-
-
-
-
-    <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?cd77d5931f412f9cfa483dcfc5fc7ce3";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
-
-
-
-    
-
-    <script>
-        (function(){
-            var bp = document.createElement('script');
-            var curProtocol = window.location.protocol.split(':')[0];
-            if (curProtocol === 'https') {
-                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-            }
-            else {
-                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-            }
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(bp, s);
-        })();
-    </script>
-
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
-
-<!--[if lte IE 8]>
-<style>
-    html{ font-size: 1em }
-</style>
-<![endif]-->
-<!--[if lte IE 9]>
-<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
-<![endif]-->
-
 <body>
-    <header class="main-header"  style="background-image:url(/img/banner.jpg)"  >
-    <div class="main-header-box">
-        <a class="header-avatar" href="/" title='Bob Huang'>
-            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
-        </a>
-        <div class="branding">
-        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
-            
-                <h2> 从未如此简单有趣～ </h2>
-            
-    	</div>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Bobo Huang写字的地方</a>
+      </h1>
+      
     </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://huangyibo.github.io"></form>
+      </div>
+    </div>
+  </div>
 </header>
-    <nav class="main-navigation">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
-                    <span class="sr-only"></span>
-                        <i class="fa fa-bars"></i>
-                    </span>
-                    <a class="navbar-brand" href="https://huangyibo.github.io">Bobo Huang写字的地方</a>
-                </div>
-                <div class="collapse navbar-collapse" id="main-menu">
-                    <ul class="menu">
-                        
-                            <li role="presentation" class="text-center">
-                                <a href="/"><i class="fa fa-home"></i>  Home</a>
-                            </li>
-                        
-                            <li role="presentation" class="text-center">
-                                <a href="/tags/算法/"><i class="fa fa-tasks"></i>  算法</a>
-                            </li>
-                        
-                            <li role="presentation" class="text-center">
-                                <a href="/categories/闲思碎语/"><i class="fa fa-tags"></i>  闲思碎语</a>
-                            </li>
-                        
-                            <li role="presentation" class="text-center">
-                                <a href="/categories/每周技术分享/"><i class="fa fa-share"></i>  每周技术分享</a>
-                            </li>
-                        
-                            <li role="presentation" class="text-center">
-                                <a href="/About"><i class="fa fa-user"></i>  About Me</a>
-                            </li>
-                        
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
-    <section class="content-wrap">
-        <div class="container">
-            <div class="row">
-                <main class="col-md-8 main-content m-post">
-                    <p id="process"></p>
-<article class="post">
-    <div class="post-head">
-        <h1 id="Web网站高并发量的解决方案">
-            
-	            Web网站高并发量的解决方案
-            
-        </h1>
-        <div class="post-meta">
+      <div class="outer">
+        <section id="main"><article id="post-Web网站高并发量的解决方案" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/08/04/Web网站高并发量的解决方案/" class="article-date">
+  <time datetime="2016-08-03T23:03:38.000Z" itemprop="datePublished">2016-08-04</time>
+</a>
     
-    
-    <span class="categories-meta fa-wrap">
-        <i class="fa fa-folder-open-o"></i>
-        <a href="/categories/架构">
-            架构
-        </a>
-    </span>
-    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/架构/">架构</a>
+  </div>
 
+  </div>
+  <div class="article-inner">
     
-    <span class="fa-wrap">
-        <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-                
-                    <a href="/tags/程序猿" title='程序猿'>
-                        程序猿
-                    </a>
-                
-                    <a href="/tags/JAVA WEB" title='JAVA WEB'>
-                        JAVA WEB
-                    </a>
-                
-            
-        </span>
-    </span>
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Web网站高并发量的解决方案
+    </h1>
+  
 
+      </header>
     
-        
-        <span class="fa-wrap">
-            <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2016/08/04</span>
-        </span>
-        
-    
-</div>
-
-            
-            
-            <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>809</strong>天之前发表，文中内容可能已经过时。
-            </p>
-        
-    </div>
-    
-    <div class="post-body post-content">
+    <div class="article-entry" itemprop="articleBody">
+      
         <h3 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h3><p>  一个小型的网站，可以使用最简单的html静态页面就实现了，配合一些图片达到美化效果，所有的页面均存放在一个目录下，这样的网站对系统架构、性能的要求都很简单。随着互联网业务的不断丰富，网站相关的技术经过这些年的发展，已经细分到很细的方方面面，尤其对于大型网站来说，所采用的技术更是涉及面非常广，从硬件到软件、编程语言、数据库、WebServer、防火墙等各个领域都有了很高的要求，已经不是原来简单的html静态网站所能比拟的。<br>  大型网站，比如门户网站，在面对大量用户访问、高并发请求方面，基本的解决方案集中在这样几个环节：使用高性能的服务器、高性能的数据库、高效率的编程语言、还有高性能的Web容器。这几个解决思路在一定程度上意味着更大的投入。</p>
 <h3 id="HTML静态化"><a href="#HTML静态化" class="headerlink" title="HTML静态化"></a><strong>HTML静态化</strong></h3><p>　　其实大家都知道，效率最高、消耗最小的就是纯静态化的html页面，所以我们尽可能使我们的网站上的页面采用静态页面来实现，这个最简单的方法其实也是最有效的方法。但是对于大量内容并且频繁更新的网站，我们无法全部手动去挨个实现，于是出现了我们常见的信息发布系统CMS，像我们常访问的各个门户站点的新闻频道，甚至他们的其他频道，都是通过信息发布系统来管理和实现的，信息发布系统可以实现最简单的信息录入自动生成静态页面，还能具备频道管理、权限管理、自动抓取等功能，对于一个大型网站来说，拥有一套高效、可管理的CMS是必不可少的。<br>　　除了门户和信息发布类型的网站，对于交互性要求很高的社区类型网站来说，尽可能的静态化也是提高性能的必要手段，将社区内的帖子、文章进行实时的静态化、有更新的时候再重新静态化也是大量使用的策略，像Mop的大杂烩就是使用了这样的策略，网易社区等也是如此。<br>　　同时，html静态化也是某些缓存策略使用的手段，对于系统中频繁使用数据库查询但是内容更新很小的应用，可以考虑使用html静态化来实现。比如论坛中论坛的公用设置信息，这些信息目前的主流论坛都可以进行后台管理并且存储在数据库中，这些信息其实大量被前台程序调用，但是更新频率很小，可以考虑将这部分内容进行后台更新的时候进行静态化，这样避免了大量的数据库访问请求。</p>
 <h3 id="图片服务器分离"><a href="#图片服务器分离" class="headerlink" title="图片服务器分离"></a><strong>图片服务器分离</strong></h3><p>　　大家知道，对于Web服务器来说，不管是Apache、IIS还是其他容器，图片是最消耗资源的，于是我们有必要将图片与页面进行分离，这是基本上大型网站都会采用的策略，他们都有独立的、甚至很多台的图片服务器。这样的架构可以降低提供页面访问请求的服务器系统压力，并且可以保证系统不会因为图片问题而崩溃。<br>　　在应用服务器和图片服务器上，可以进行不同的配置优化，比如apache在配置ContentType的时候可以尽量少支持、尽可能少的LoadModule，保证更高的系统消耗和执行效率。</p>
@@ -222,143 +102,147 @@
 <hr>
 <p>Bobo<br>20160804</p>
 
+      
     </div>
-    
-        <div class="reward">
-    <div class="reward-wrap">赏
-        <div class="reward-box">
-            
-                <span class="reward-type">
-                    <img class="alipay" src="/img/alipay.jpeg"><b>支付宝打赏</b>
-                </span>
-            
-            
-                <span class="reward-type">
-                    <img class="wechat" src="/img/wepay.jpeg"><b>微信打赏</b>
-                </span>
-            
-        </div>
-    </div>
-    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
-</div>
+    <footer class="article-footer">
+      <a data-url="https://huangyibo.github.io/2016/08/04/Web网站高并发量的解决方案/" data-id="cjnkcum5i000pdemx1bn3x06w" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA-WEB/">JAVA WEB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/程序猿/">程序猿</a></li></ul>
 
-
+    </footer>
+  </div>
+  
     
-    <div class="post-footer">
-        <div>
-            
-                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Bobo Huang</a>
-            
-        </div>
-        <div>
-            
-        </div>
-    </div>
+<nav id="article-nav">
+  
+    <a href="/2018/06/08/Makefile中-PHONY的使用/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Makefile中.PHONY的使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/08/04/提高程序员编程效率的好习惯/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">提高程序员编程效率的好习惯</div>
+    </a>
+  
+</nav>
+
+  
 </article>
 
-<div class="article-nav prev-next-wrap clearfix">
-    
-        <a href="/2018/06/08/Makefile中-PHONY的使用/" class="pre-post btn btn-default" title='Makefile中.PHONY的使用'>
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">Makefile中.PHONY的使用</span>
-        </a>
-    
-    
-        <a href="/2016/08/04/提高程序员编程效率的好习惯/" class="next-post btn btn-default" title='提高程序员编程效率的好习惯'>
-            <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">提高程序员编程效率的好习惯</span><i class="fa fa-angle-right fa-fw"></i>
-        </a>
-    
-</div>
-
-
-    <div id="comments">
+</section>
         
+          <aside id="sidebar">
+  
     
-    <div id="vcomments" class="valine"></div>
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="/assets/valine.min.js"></script>
-
-    <script>
-        new Valine({
-            av: AV,
-            el: '#vcomments',
-            appId: 'DL5693uIDX7fHtjctmTjGuis-gzGzoHsz',
-            appKey: 'OheW0MamYu8xrN4Qw5MJxcIa',
-            placeholder: '说点什么吧',
-            notify: false,
-            verify: false,
-            avatar: 'mm',
-            meta: 'nick,mail'.split(','),
-            pageSize: '10',
-            path: window.location.pathname,
-            lang: ''.toLowerCase()
-        })
-    </script>
-
-
-    </div>
-
-
-
-
-
-                </main>
-                
-                    <aside id="article-toc" role="navigation" class="col-md-4">
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
     <div class="widget">
-        <h3 class="title">Table of Contents</h3>
-        
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#摘要："><span class="toc-number">1.</span> <span class="toc-text">摘要：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTML静态化"><span class="toc-number">2.</span> <span class="toc-text">HTML静态化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图片服务器分离"><span class="toc-number">3.</span> <span class="toc-text">图片服务器分离</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库集群、库表散列"><span class="toc-number">4.</span> <span class="toc-text">数据库集群、库表散列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缓存"><span class="toc-number">5.</span> <span class="toc-text">缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#镜像"><span class="toc-number">6.</span> <span class="toc-text">镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#负载均衡"><span class="toc-number">7.</span> <span class="toc-text">负载均衡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最新：CDN加速技术"><span class="toc-number">8.</span> <span class="toc-text">最新：CDN加速技术</span></a></li></ol>
-        
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-C-编程/">C/C++编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/架构/">架构</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/每周技术分享/">每周技术分享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/闲思碎语/">闲思碎语</a></li></ul>
     </div>
-</aside>
-
-                
-            </div>
-        </div>
-    </section>
-    <footer class="main-footer">
-    <div class="container">
-        <div class="row">
-        </div>
-    </div>
-</footer>
-
-<a id="back-to-top" class="icon-btn hide">
-	<i class="fa fa-chevron-up"></i>
-</a>
+  </div>
 
 
-
-
-    <div class="copyright">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="busuanzi">
+  
     
-</div>
-
-            </div>
-            <div class="col-sm-12">
-                <span>Copyright &copy; 2019
-                </span> |
-                <span>
-                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
-                </span> 
-            </div>
-        </div>
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bitmap/">Bitmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C-编程/">C/C++编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA-WEB/">JAVA WEB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Paxos/">Paxos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Producer-Customer/">Producer-Customer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RDMA/">RDMA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST-API/">REST API</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/">Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System-Primitive/">System Primitive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序猿/">程序猿</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/系统原语/">系统原语</a></li></ul>
     </div>
-</div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Bitmap/" style="font-size: 10px;">Bitmap</a> <a href="/tags/C-C-编程/" style="font-size: 16.67px;">C/C++编程</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/JAVA-WEB/" style="font-size: 13.33px;">JAVA WEB</a> <a href="/tags/Paxos/" style="font-size: 10px;">Paxos</a> <a href="/tags/Producer-Customer/" style="font-size: 13.33px;">Producer-Customer</a> <a href="/tags/RDMA/" style="font-size: 10px;">RDMA</a> <a href="/tags/REST-API/" style="font-size: 10px;">REST API</a> <a href="/tags/Sort/" style="font-size: 10px;">Sort</a> <a href="/tags/System-Primitive/" style="font-size: 13.33px;">System Primitive</a> <a href="/tags/程序猿/" style="font-size: 13.33px;">程序猿</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/系统原语/" style="font-size: 13.33px;">系统原语</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/10/22/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/22/System-Primitive-系统原语-的基本原理与实践/">System Primitive(系统原语)的基本原理与实践</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/22/System-Primitive的基本原理与实践/">System Primitive的基本原理与实践</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/16/Bitmap算法-一种基于bit位的数据排序、查重艺术/">Bitmap算法:一种基于bit位的数据排序、查重艺术</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/15/RDMA-Driven-Paxos-Consistent-Algorithm/">RDMA-Driven Paxos Consistent Algorithm</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Bob Huang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
 
 
 
-
-
-
-
-<script src="/js/app.js?rev=@@hash"></script>
-
+  </div>
 </body>
 </html>
