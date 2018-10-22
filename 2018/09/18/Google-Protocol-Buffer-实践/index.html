@@ -1,102 +1,208 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
+<html lang="">
 <head>
-  <meta charset="utf-8">
-  
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Bobo Huang写字的地方">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="https://huangyibo.github.io">
+    <!--SEO-->
 
-  
-  <title>Google Protocol Buffer 实践 | Bobo Huang写字的地方</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="简介 什么是 Google Protocol Buffer？ 假如您在网上搜索，应该会得到类似这样的文字介绍：Google Protocol Buffer( 简称 Protobuf) 是 Google 公司内部的混合语言数据标准，目前已经正在使用的有超过 48,162 种报文格式定义和超过 12,183 个 .proto 文件。他们用于 RPC 系统和持续数据存储系统。Protocol Buffe">
-<meta name="keywords" content="C&#x2F;C++编程">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Google Protocol Buffer 实践">
-<meta property="og:url" content="https://huangyibo.github.io/2018/09/18/Google-Protocol-Buffer-实践/index.html">
-<meta property="og:site_name" content="Bobo Huang写字的地方">
-<meta property="og:description" content="简介 什么是 Google Protocol Buffer？ 假如您在网上搜索，应该会得到类似这样的文字介绍：Google Protocol Buffer( 简称 Protobuf) 是 Google 公司内部的混合语言数据标准，目前已经正在使用的有超过 48,162 种报文格式定义和超过 12,183 个 .proto 文件。他们用于 RPC 系统和持续数据存储系统。Protocol Buffe">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2639937-e42d037868db93e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/2000">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2639937-9166113b95e5d7a4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/2000">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2639937-57028764b0d9dc88.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2639937-440e574a983f7da8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2639937-00e1d92873b596e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/2000">
-<meta property="og:updated_time" content="2018-10-17T08:59:56.236Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Google Protocol Buffer 实践">
-<meta name="twitter:description" content="简介 什么是 Google Protocol Buffer？ 假如您在网上搜索，应该会得到类似这样的文字介绍：Google Protocol Buffer( 简称 Protobuf) 是 Google 公司内部的混合语言数据标准，目前已经正在使用的有超过 48,162 种报文格式定义和超过 12,183 个 .proto 文件。他们用于 RPC 系统和持续数据存储系统。Protocol Buffe">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/2639937-e42d037868db93e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/2000">
-  
+
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+
+<title>Google Protocol Buffer 实践 | Bobo Huang写字的地方</title>
+
+
     <link rel="alternate" href="/atom.xml" title="Bobo Huang写字的地方" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?cd77d5931f412f9cfa483dcfc5fc7ce3";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+
+    
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
 </head>
 
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Bobo Huang写字的地方</a>
-      </h1>
-      
+    <header class="main-header"  style="background-image:url(/img/banner.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Bob Huang'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 从未如此简单有趣～ </h2>
+            
+    	</div>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://huangyibo.github.io"></form>
-      </div>
-    </div>
-  </div>
 </header>
-      <div class="outer">
-        <section id="main"><article id="post-Google-Protocol-Buffer-实践" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/09/18/Google-Protocol-Buffer-实践/" class="article-date">
-  <time datetime="2018-09-17T23:16:54.000Z" itemprop="datePublished">2018-09-18</time>
-</a>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://huangyibo.github.io">Bobo Huang写字的地方</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa fa-home"></i>  Home</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/tags/算法/"><i class="fa fa-tasks"></i>  算法</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/闲思碎语/"><i class="fa fa-tags"></i>  闲思碎语</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/每周技术分享/"><i class="fa fa-share"></i>  每周技术分享</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/About"><i class="fa fa-user"></i>  About Me</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Google Protocol Buffer 实践">
+            
+	            Google Protocol Buffer 实践
+            
+        </h1>
+        <div class="post-meta">
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/C-C-编程/">C/C++编程</a>
-  </div>
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/C/C++编程">
+            C/C++编程
+        </a>
+    </span>
+    
 
-  </div>
-  <div class="article-inner">
     
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/C/C++编程" title='C/C++编程'>
+                        C/C++编程
+                    </a>
+                
+            
+        </span>
+    </span>
     
-      <header class="article-header">
+
+    
         
-  
-    <h1 class="article-title" itemprop="name">
-      Google Protocol Buffer 实践
-    </h1>
-  
-
-      </header>
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2018/09/18</span>
+        </span>
+        
     
-    <div class="article-entry" itemprop="articleBody">
-      
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
         <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
 <p>什么是 Google Protocol Buffer？ 假如您在网上搜索，应该会得到类似这样的文字介绍：<br>Google Protocol Buffer( 简称 Protobuf) 是 Google 公司内部的混合语言数据标准，目前已经正在使用的有超过 48,162 种报文格式定义和超过 12,183 个 .proto 文件。他们用于 RPC 系统和持续数据存储系统。<br>Protocol Buffers 是一种轻便高效的结构化数据存储格式，可以用于结构化数据串行化，或者说序列化。它很适合做数据存储或 RPC 数据交换格式。可用于通讯协议、数据存储等领域的语言无关、平台无关、可扩展的序列化结构数据格式。目前提供了 C++、Java、Python 三种语言的 API。<br>或许您和我一样，在第一次看完这些介绍后还是不明白 Protobuf 究竟是什么，那么我想一个简单的例子应该比较有助于理解它。</p>
 </blockquote>
@@ -191,147 +297,143 @@
 <p>这样生成的编译器和 protoc 的使用方法相同，接受同样的命令行参数，cli 将对用户输入的 .proto 进行词法语法等分析工作，最终生成一个语法树。该树的结构如图所示。</p>
 <p><div align="center"><br><img src="https://upload-images.jianshu.io/upload_images/2639937-00e1d92873b596e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/2000" alt="图 5. 语法树"><br></div><br>其根节点为一个 FileDescriptor 对象（请参考“动态编译”一节），并作为输入参数被传入 yourG 的 Generator() 方法。在这个方法内，您可以遍历语法树，然后生成对应的您所需要的代码。简单说来，要想实现一个新的 compiler，您只需要写一个 main 函数，和一个实现了方法 Generator() 的派生类即可。</p>
 
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="https://huangyibo.github.io/2018/09/18/Google-Protocol-Buffer-实践/" data-id="cjnkcum6m001odemxg5q5a9wn" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-C-编程/">C/C++编程</a></li></ul>
-
-    </footer>
-  </div>
-  
     
-<nav id="article-nav">
-  
-    <a href="/2018/10/15/RDMA-Driven-Paxos-Consistent-Algorithm/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          RDMA-Driven Paxos Consistent Algorithm
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/06/08/C语言中snprintf-函数/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">C语言中snprintf()函数</div>
-    </a>
-  
-</nav>
+        <div class="reward">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="/img/alipay.jpeg"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="/img/wepay.jpeg"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
 
-  
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Bobo Huang</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
 </article>
 
-</section>
-        
-          <aside id="sidebar">
-  
+<div class="article-nav prev-next-wrap clearfix">
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
+        <a href="/2018/10/15/RDMA-Driven-Paxos-Consistent-Algorithm/" class="pre-post btn btn-default" title='RDMA-Driven Paxos Consistent Algorithm'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">RDMA-Driven Paxos Consistent Algorithm</span>
+        </a>
+    
+    
+        <a href="/2018/06/08/C语言中snprintf-函数/" class="next-post btn btn-default" title='C语言中snprintf()函数'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">C语言中snprintf()函数</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+    
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'DL5693uIDX7fHtjctmTjGuis-gzGzoHsz',
+            appKey: 'OheW0MamYu8xrN4Qw5MJxcIa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: ''.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C-C-编程/">C/C++编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/架构/">架构</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/每周技术分享/">每周技术分享</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/闲思碎语/">闲思碎语</a></li></ul>
+        <h3 class="title">Table of Contents</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Google-Protocol-Buffer-Demo"><span class="toc-number">2.</span> <span class="toc-text">Google Protocol Buffer Demo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Google-Protocol-Buffer"><span class="toc-number">2.1.</span> <span class="toc-text">安装Google Protocol Buffer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Demo描述"><span class="toc-number">2.2.</span> <span class="toc-text">Demo描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建编写-proto-文件"><span class="toc-number">2.3.</span> <span class="toc-text">创建编写.proto 文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编译-proto-文件"><span class="toc-number">2.4.</span> <span class="toc-text">编译 .proto 文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编写-writer-和-Reader"><span class="toc-number">2.5.</span> <span class="toc-text">编写 writer 和 Reader</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行结果"><span class="toc-number">2.6.</span> <span class="toc-text">运行结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#和其他类似技术的比较"><span class="toc-number">3.</span> <span class="toc-text">和其他类似技术的比较</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Protobuf-的优点"><span class="toc-number">3.1.</span> <span class="toc-text">Protobuf 的优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Protobuf-的不足"><span class="toc-number">3.2.</span> <span class="toc-text">Protobuf 的不足</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#高级应用话题"><span class="toc-number">4.</span> <span class="toc-text">高级应用话题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#更复杂的-Message"><span class="toc-number">4.1.</span> <span class="toc-text">更复杂的 Message</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动态编译"><span class="toc-number">4.2.</span> <span class="toc-text">动态编译</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编写新的-proto-编译器"><span class="toc-number">4.3.</span> <span class="toc-text">编写新的 proto 编译器</span></a></li></ol></li></ol>
+        
     </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bitmap/">Bitmap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-C-编程/">C/C++编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA-WEB/">JAVA WEB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Paxos/">Paxos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Producer-Customer/">Producer-Customer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RDMA/">RDMA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/REST-API/">REST API</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/">Sort</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System-Primitive/">System Primitive</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/程序猿/">程序猿</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/系统原语/">系统原语</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Bitmap/" style="font-size: 10px;">Bitmap</a> <a href="/tags/C-C-编程/" style="font-size: 16.67px;">C/C++编程</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/JAVA-WEB/" style="font-size: 13.33px;">JAVA WEB</a> <a href="/tags/Paxos/" style="font-size: 10px;">Paxos</a> <a href="/tags/Producer-Customer/" style="font-size: 13.33px;">Producer-Customer</a> <a href="/tags/RDMA/" style="font-size: 10px;">RDMA</a> <a href="/tags/REST-API/" style="font-size: 10px;">REST API</a> <a href="/tags/Sort/" style="font-size: 10px;">Sort</a> <a href="/tags/System-Primitive/" style="font-size: 13.33px;">System Primitive</a> <a href="/tags/程序猿/" style="font-size: 13.33px;">程序猿</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/系统原语/" style="font-size: 13.33px;">系统原语</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/10/22/test/">test</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/22/System-Primitive-系统原语-的基本原理与实践/">System Primitive(系统原语)的基本原理与实践</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/22/System-Primitive的基本原理与实践/">System Primitive的基本原理与实践</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/16/Bitmap算法-一种基于bit位的数据排序、查重艺术/">Bitmap算法:一种基于bit位的数据排序、查重艺术</a>
-          </li>
-        
-          <li>
-            <a href="/2018/10/15/RDMA-Driven-Paxos-Consistent-Algorithm/">RDMA-Driven Paxos Consistent Algorithm</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
 </aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2018 Bob Huang<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
     </div>
-  </div>
 </footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
     
+</div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2019
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> 
+            </div>
+        </div>
+    </div>
+</div>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
 
 
 
-  </div>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
 </body>
 </html>
